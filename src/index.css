@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --app-bg: #eee3d5;
+  --card-bg: #fcfaf6;
+  --card-border: #ddd0bf;
+  --input-bg: #f3ece2;
+  --input-border: #cdbeab;
+  --text-main: #3e3228;
+  --text-muted: #7c6c5f;
+  --accent: #8e6c4e;
+  --accent-hover: #75563a;
+  --accent-text: #ffffff;
+  --badge-bg: #f2e8dc;
+  --badge-text: #75563a;
+  --header-bg: #f4ece2;
+  --header-border: #ddd0bf;
+}
+
+#root,
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  background-color: var(--app-bg);
+  color: var(--text-main);
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit !important;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 9999px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
