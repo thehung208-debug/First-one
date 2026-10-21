@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* Nền vàng nhẹ nhàng & Điểm nhấn Đỏ gạch (Warm Buttercream & Terracotta Brick) */
-  --app-bg: #fdf5e6;          /* Vàng kem nhẹ dịu mắt, ấm áp */
-  --card-bg: #fffdf9;         /* Thẻ nội dung màu trắng ngà thanh thoát */
-  --card-border: #f0deca;     /* Viền thẻ màu vàng mật ong nhạt */
-  --input-bg: #faeedb;        /* Ô nhập liệu màu vàng nhạt ấm cúng */
-  --input-border: #e8d0b5;    /* Viền ô nhập liệu */
-  --text-main: #3d2319;       /* Chữ chính màu nâu đen đậm dễ đọc */
-  --text-muted: #805c4d;      /* Chữ phụ màu nâu đất */
-  --accent: #c4452a;          /* Đỏ gạch nổi bật, ấm áp, đậm chất du lịch */
-  --accent-hover: #a8361e;    /* Đỏ gạch đậm khi chạm/hover */
-  --accent-text: #ffffff;     /* Chữ trắng nổi trên nền đỏ gạch */
-  --badge-bg: #fde8e3;        /* Thẻ phụ màu hồng đỏ gạch nhạt */
-  --badge-text: #a8361e;      /* Chữ đỏ gạch trên thẻ phụ */
-  --header-bg: #fbeed9;       /* Header màu vàng kem dịu mắt */
-  --header-border: #ebd3b7;   /* Viền header */
+  /* Tông màu Trắng & Đen Tối giản (Monochrome Minimalist) */
+  --app-bg: #f5f5f5;          /* Nền xám khói rất nhẹ, dịu mắt, làm nổi bật thẻ */
+  --card-bg: #ffffff;         /* Thẻ nội dung màu trắng tinh khôi */
+  --card-border: #e0e0e0;     /* Viền thẻ màu xám nhạt tinh tế */
+  --input-bg: #fafafa;        /* Ô nhập liệu màu trắng xám nhẹ */
+  --input-border: #d4d4d4;    /* Viền ô nhập liệu */
+  --text-main: #171717;       /* Chữ chính màu đen tuyền đậm nét, tương phản cao */
+  --text-muted: #737373;      /* Chữ phụ màu xám trung tính */
+  --accent: #171717;          /* Màu điểm nhấn: Đen sang trọng */
+  --accent-hover: #404040;    /* Đen xám khi chạm/hover */
+  --accent-text: #ffffff;     /* Chữ trắng nổi bật trên nền đen */
+  --badge-bg: #f0f0f0;        /* Thẻ phụ màu xám nhạt */
+  --badge-text: #171717;      /* Chữ đen trên thẻ phụ */
+  --header-bg: #ffffff;       /* Header màu trắng sạch sẽ */
+  --header-border: #e5e5e5;   /* Viền header xám mảnh */
 }
 
 #root,
