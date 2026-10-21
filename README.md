@@ -5,7 +5,8 @@
 ## 📌 Các phiên bản (Tags / Milestones)
 
 - **[Bản gốc (v1.0 - Tag: ban-goc)](https://github.com/thehung208-debug/First-one/releases/tag/ban-goc)**: Phiên bản đầu tiên hoàn thiện đầy đủ tính năng cốt lõi.
-- **[Sửa lần 1 (Latest Commit)](https://github.com/thehung208-debug/First-one/commit/ee0f3d6)**: Cập nhật giao diện tông màu Vàng nhẹ và Đỏ gạch.
+- **[Sửa lần 1 (Commit: ee0f3d6)](https://github.com/thehung208-debug/First-one/commit/ee0f3d6)**: Cập nhật giao diện tông màu Vàng nhẹ và Đỏ gạch.
+- **[Sửa lần 2 (Latest Commit: 7b09a8e)](https://github.com/thehung208-debug/First-one/commit/7b09a8e)**: Đổi màu giao diện sang phong cách Trắng Đen (Monochrome).
 
 ## ✨ Tính năng nổi bật
 
@@ -14,7 +15,7 @@
 - 💰 **Định dạng số thông minh:** Tự động định dạng dấu chấm phân cách hàng nghìn (`.`) ngay trong lúc gõ và hỗ trợ dấu phẩy (`,`) cho tiền lẻ lẻ dưới 1 đơn vị tiền tệ.
 - 🎯 **Gợi ý thanh toán tối thiểu (Minimum Cash Flow):** Nút "Kết thúc chuyến đi" sẽ tự động tính toán và đưa ra số lần chuyển khoản ít nhất có thể giữa các thành viên.
 - 📱 **Tạo mã VietQR:** Tích hợp mã VietQR quét trực tiếp trên các ứng dụng ngân hàng tại Việt Nam.
-- 🎨 **Giao diện thân thiện:** Tông màu vàng nhẹ & đỏ gạch ấm áp, gần gũi, tối ưu hiển thị mượt mà trên điện thoại di động.
+- 🎨 **Giao diện Trắng Đen tối giản:** Sang trọng, tương phản cao, số tiền to rõ nét, hoàn hảo trên điện thoại di động.
 
 ## 🚀 Cài đặt & Chạy cục bộ
 
