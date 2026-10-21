@@ -1,20 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --app-bg: #eee3d5;
-  --card-bg: #fcfaf6;
-  --card-border: #ddd0bf;
-  --input-bg: #f3ece2;
-  --input-border: #cdbeab;
-  --text-main: #3e3228;
-  --text-muted: #7c6c5f;
-  --accent: #8e6c4e;
-  --accent-hover: #75563a;
-  --accent-text: #ffffff;
-  --badge-bg: #f2e8dc;
-  --badge-text: #75563a;
-  --header-bg: #f4ece2;
-  --header-border: #ddd0bf;
+  /* Nền vàng nhẹ nhàng & Điểm nhấn Đỏ gạch (Warm Buttercream & Terracotta Brick) */
+  --app-bg: #fdf5e6;          /* Vàng kem nhẹ dịu mắt, ấm áp */
+  --card-bg: #fffdf9;         /* Thẻ nội dung màu trắng ngà thanh thoát */
+  --card-border: #f0deca;     /* Viền thẻ màu vàng mật ong nhạt */
+  --input-bg: #faeedb;        /* Ô nhập liệu màu vàng nhạt ấm cúng */
+  --input-border: #e8d0b5;    /* Viền ô nhập liệu */
+  --text-main: #3d2319;       /* Chữ chính màu nâu đen đậm dễ đọc */
+  --text-muted: #805c4d;      /* Chữ phụ màu nâu đất */
+  --accent: #c4452a;          /* Đỏ gạch nổi bật, ấm áp, đậm chất du lịch */
+  --accent-hover: #a8361e;    /* Đỏ gạch đậm khi chạm/hover */
+  --accent-text: #ffffff;     /* Chữ trắng nổi trên nền đỏ gạch */
+  --badge-bg: #fde8e3;        /* Thẻ phụ màu hồng đỏ gạch nhạt */
+  --badge-text: #a8361e;      /* Chữ đỏ gạch trên thẻ phụ */
+  --header-bg: #fbeed9;       /* Header màu vàng kem dịu mắt */
+  --header-border: #ebd3b7;   /* Viền header */
 }
 
 #root,
