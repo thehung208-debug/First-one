@@ -58,7 +58,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
                 autoFocus
                 onKeyDown={(e) => e.key === 'Enter' && saveEdit(m.id)}
               />
-              <button onClick={() => saveEdit(m.id)} className="text-emerald-600 p-0.5 cursor-pointer">
+              <button type="button" onClick={() => saveEdit(m.id)} className="text-emerald-600 p-0.5 cursor-pointer">
                 <Check className="w-3.5 h-3.5" />
               </button>
             </div>
@@ -66,14 +66,18 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             <div className="flex items-center gap-1">
               <span>{m.name}</span>
               <button
+                type="button"
                 onClick={() => { setEditingId(m.id); setEditName(m.name) }}
-                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-stone-700"
+                className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-stone-700"
+                title="Sửa tên"
               >
                 <Edit2 className="w-3 h-3" />
               </button>
               <button
+                type="button"
                 onClick={() => onRemoveMember(m.id)}
-                className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-rose-600"
+                className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-rose-600"
+                title="Xóa thành viên"
               >
                 <Trash2 className="w-3 h-3" />
               </button>
@@ -86,7 +90,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
       <form onSubmit={handleAdd} className="inline-flex items-center gap-1.5">
         <input
           type="text"
-          placeholder="Tên mới..."
+          placeholder={members.length === 0 ? "Thêm tên người..." : "Tên mới..."}
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           style={{
@@ -94,7 +98,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="w-24 sm:w-28 px-2.5 py-1.5 text-xs rounded-xl border focus:outline-none transition-all placeholder:text-stone-400"
+          className="w-28 sm:w-36 px-2.5 py-1.5 text-xs rounded-xl border focus:outline-none transition-all placeholder:text-stone-400"
         />
         <button
           type="submit"

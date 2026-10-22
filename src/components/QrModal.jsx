@@ -48,6 +48,7 @@ export default function QrModal({ isOpen, onClose, transaction }) {
             </h3>
           </div>
           <button
+            type="button"
             onClick={onClose}
             className="p-1 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
           >
@@ -123,6 +124,7 @@ export default function QrModal({ isOpen, onClose, transaction }) {
           {/* Action buttons */}
           <div className="flex items-center gap-2 pt-2 border-t border-[#eee3d7]">
             <button
+              type="button"
               onClick={copyInfo}
               className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#faf3eb] hover:bg-[#f3e6d8] text-[#78350f] font-semibold border border-[#eedcc8] transition-colors cursor-pointer"
             >
@@ -131,6 +133,7 @@ export default function QrModal({ isOpen, onClose, transaction }) {
             </button>
 
             <button
+              type="button"
               onClick={onClose}
               className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition-colors cursor-pointer"
             >
