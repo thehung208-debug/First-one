@@ -2,7 +2,15 @@
 
 Ứng dụng web chia tiền du lịch thông minh, thân thiện và tối giản, hỗ trợ đa tiền tệ với quy đổi tỷ giá theo thời gian thực sang VNĐ.
 
-## ✨ Tính năng nổi bật
+## 🌐 Trực tuyến (Live App)
+- **Cloudflare Pages:** [https://chia-tien-du-lich.pages.dev](https://chia-tien-du-lich.pages.dev)
+- **Hỗ trợ PWA:** Cài đặt trực tiếp lên màn hình chính điện thoại iOS / Android như app độc lập (Standalone).
+
+## 📌 Các phiên bản (Branches / Milestones)
+- **[Bản gốc (Tag: ban-goc)](https://github.com/thehung208-debug/First-one/releases/tag/ban-goc):** Phiên bản đầu tiên với chủ đề Cozy Latte.
+- **[Sửa lần 1 (Branch: sua-lan-1)](https://github.com/thehung208-debug/First-one/tree/sua-lan-1):** Cập nhật giao diện tông màu Vàng nhẹ và Đỏ gạch.
+- **[Sửa lần 2 (Branch: sua-lan-2)](https://github.com/thehung208-debug/First-one/tree/sua-lan-2):** Giao diện phong cách Trắng Đen (Monochrome).
+- **[Sửa lần 3 (Branch: sua-lan-3)](https://github.com/thehung208-debug/First-one/tree/sua-lan-3):** Hỗ trợ PWA cài đặt app điện thoại, Cloudflare Pages, nút "All" chọn tất cả, bổ sung chi tiêu bị sót sau khi chốt sổ, và quản lý nhiều chuyến đi kèm màn hình chào mừng lúc mới vào.
 
 - 🌍 **Đa tiền tệ:** Hỗ trợ nhập trực tiếp bằng nhiều loại tiền tệ: Euro (€ - EUR), Złoty Ba Lan (zł - PLN), VNĐ (₫), USD ($)...
 - ⚡ **Quy đổi thời gian thực:** Tự động quy đổi tỷ giá trực tiếp sang tiền VNĐ theo tỷ giá mở quốc tế.
