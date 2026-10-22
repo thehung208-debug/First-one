@@ -28,7 +28,7 @@ export default function TripSelector({
   const [isOpen, setIsOpen] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
   const [newTripName, setNewTripName] = useState('')
-  const [copyMembers, setCopyMembers] = useState(true)
+  const [copyMembers, setCopyMembers] = useState(false)
   const [editingTripId, setEditingTripId] = useState(null)
   const [editingName, setEditingName] = useState('')
 
@@ -37,7 +37,7 @@ export default function TripSelector({
   const handleStartCreate = () => {
     setIsCreating(true)
     setNewTripName(`Chuyến đi ${trips.length + 1}`)
-    setCopyMembers(true)
+    setCopyMembers(false)
   }
 
   const handleConfirmCreate = (e) => {
@@ -350,7 +350,7 @@ export default function TripSelector({
                         onChange={(e) => setCopyMembers(e.target.checked)}
                         className="rounded accent-amber-600 cursor-pointer"
                       />
-                      <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến này ({activeTrip.members.map(m => m.name).join(', ')})</span>
+                      <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến này (bỏ chọn để bắt đầu lại từ đầu)</span>
                     </label>
                   )}
 

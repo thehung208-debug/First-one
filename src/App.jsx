@@ -37,10 +37,7 @@ export default function App() {
         id: `trip_${Date.now()}`,
         name: 'Chuyến đi 1',
         createdAt: new Date().toISOString(),
-        members: legacyMembers.length > 0 ? legacyMembers : [
-          { id: 'm1', name: 'Tôi', color: '#c4452a' },
-          { id: 'm2', name: 'Bạn đồng hành', color: '#2563eb' }
-        ],
+        members: legacyMembers.length > 0 ? legacyMembers : [],
         expenses: legacyExpenses || [],
         completedTxIds: legacyCompleted || [],
         tripEnded: false
@@ -51,10 +48,7 @@ export default function App() {
         id: `trip_${Date.now()}`,
         name: 'Chuyến đi 1',
         createdAt: new Date().toISOString(),
-        members: [
-          { id: 'm1', name: 'Tôi', color: '#c4452a' },
-          { id: 'm2', name: 'Bạn đồng hành', color: '#2563eb' }
-        ],
+        members: [],
         expenses: [],
         completedTxIds: [],
         tripEnded: false
@@ -208,7 +202,15 @@ export default function App() {
   }
 
   const handleToggleEndTrip = () => {
-    updateActiveTrip(t => ({ ...t, tripEnded: !t.tripEnded }))
+    updateActiveTrip(t => {
+      const nextTripEnded = !t.tripEnded
+      if (nextTripEnded) {
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' })
+        }, 50)
+      }
+      return { ...t, tripEnded: nextTripEnded }
+    })
   }
 
   // Trip management operations
@@ -222,10 +224,7 @@ export default function App() {
     const newId = `trip_${Date.now()}`
     const membersToUse = copyMembersFromActive && activeTrip?.members?.length > 0
       ? activeTrip.members.map(m => ({ ...m }))
-      : [
-          { id: `m_${Date.now()}_1`, name: 'Tôi', color: '#c4452a' },
-          { id: `m_${Date.now()}_2`, name: 'Bạn đồng hành', color: '#2563eb' }
-        ]
+      : [] // Bắt đầu lại từ đầu: hoàn toàn trống, không thêm thành viên mặc định
 
     const newTrip = {
       id: newId,
@@ -328,85 +327,173 @@ export default function App() {
         </header>
 
         <main className="w-full max-w-2xl mx-auto px-4 pt-4 pb-12 space-y-4">
-          {/* Members section */}
-          <section
-            style={{
-              backgroundColor: 'var(--card-bg)',
-              borderColor: 'var(--card-border)',
-              color: 'var(--text-main)',
-            }}
-            className="rounded-2xl px-4 py-3.5 border-2 space-y-2 shadow-sm"
-          >
-            <span
-              style={{ color: 'var(--accent)' }}
-              className="text-xs font-black uppercase tracking-wider"
-            >
-              Thành viên ({members.length})
-            </span>
-            <MemberManager
-              members={members}
-              onAddMember={handleAddMember}
-              onRemoveMember={handleRemoveMember}
-              onUpdateMember={handleUpdateMember}
-            />
-          </section>
+          {tripEnded ? (
+            <>
+              {/* 1. GỢI Ý CHUYỂN TIỀN ĐƯỢC ĐƯA LÊN ĐẦU TIÊN KHI KẾT THÚC CHUYẾN ĐI */}
+              <SettlementPlan
+                calculation={calculation}
+                completedTxIds={completedTxIds}
+                onToggleCompleteTx={handleToggleCompleteTx}
+                tripEnded={tripEnded}
+                onEndTrip={handleToggleEndTrip}
+                onTriggerAddExpense={handleTriggerAddExpense}
+                recentlyRecalculated={recentlyRecalculated}
+                onDismissRecalculated={() => setRecentlyRecalculated(false)}
+              />
 
-          {/* Add / Edit Expense Form */}
-          <ExpenseForm
-            members={members}
-            rates={rates}
-            onAddExpense={handleAddExpense}
-            editingExpense={editingExpense}
-            onCancelEdit={() => setEditingExpense(null)}
-            onUpdateExpense={handleUpdateExpense}
-            tripEnded={tripEnded}
-            isHighlighted={isFormHighlighted}
-            formRef={formRef}
-            titleInputRef={titleInputRef}
-          />
+              {/* 2. Tổng quan chi tiêu */}
+              <SummaryCards calculation={calculation} />
 
-          {/* Overview: Total group spending */}
-          <SummaryCards calculation={calculation} />
+              {/* 3. Lịch sử chi tiêu */}
+              {expenses.length > 0 && (
+                <section
+                  style={{
+                    backgroundColor: 'var(--card-bg)',
+                    borderColor: 'var(--card-border)',
+                    color: 'var(--text-main)',
+                  }}
+                  className="rounded-2xl p-4 border-2 space-y-2.5 shadow-sm"
+                >
+                  <span
+                    style={{ color: 'var(--accent)' }}
+                    className="text-xs font-black uppercase tracking-wider"
+                  >
+                    Lịch sử chi tiêu ({expenses.length})
+                  </span>
+                  <ExpenseList
+                    expenses={expenses}
+                    members={members}
+                    rates={rates}
+                    onDeleteExpense={handleDeleteExpense}
+                    onEditExpense={(exp) => {
+                      setEditingExpense(exp)
+                      handleTriggerAddExpense()
+                    }}
+                  />
+                </section>
+              )}
 
-          {/* End Trip button & Settlement Plan */}
-          <SettlementPlan
-            calculation={calculation}
-            completedTxIds={completedTxIds}
-            onToggleCompleteTx={handleToggleCompleteTx}
-            tripEnded={tripEnded}
-            onEndTrip={handleToggleEndTrip}
-            onTriggerAddExpense={handleTriggerAddExpense}
-            recentlyRecalculated={recentlyRecalculated}
-            onDismissRecalculated={() => setRecentlyRecalculated(false)}
-          />
-
-          {/* Expense history */}
-          {expenses.length > 0 && (
-            <section
-              style={{
-                backgroundColor: 'var(--card-bg)',
-                borderColor: 'var(--card-border)',
-                color: 'var(--text-main)',
-              }}
-              className="rounded-2xl p-4 border-2 space-y-2.5 shadow-sm"
-            >
-              <span
-                style={{ color: 'var(--accent)' }}
-                className="text-xs font-black uppercase tracking-wider"
-              >
-                Lịch sử chi tiêu ({expenses.length})
-              </span>
-              <ExpenseList
-                expenses={expenses}
+              {/* 4. Form bổ sung chi tiêu (nếu còn nội dung chưa nhập) */}
+              <ExpenseForm
                 members={members}
                 rates={rates}
-                onDeleteExpense={handleDeleteExpense}
-                onEditExpense={(exp) => {
-                  setEditingExpense(exp)
-                  window.scrollTo({ top: 0, behavior: 'smooth' })
-                }}
+                onAddExpense={handleAddExpense}
+                editingExpense={editingExpense}
+                onCancelEdit={() => setEditingExpense(null)}
+                onUpdateExpense={handleUpdateExpense}
+                tripEnded={tripEnded}
+                isHighlighted={isFormHighlighted}
+                formRef={formRef}
+                titleInputRef={titleInputRef}
               />
-            </section>
+
+              {/* 5. Thành viên */}
+              <section
+                style={{
+                  backgroundColor: 'var(--card-bg)',
+                  borderColor: 'var(--card-border)',
+                  color: 'var(--text-main)',
+                }}
+                className="rounded-2xl px-4 py-3.5 border-2 space-y-2 shadow-sm opacity-90"
+              >
+                <span
+                  style={{ color: 'var(--accent)' }}
+                  className="text-xs font-black uppercase tracking-wider"
+                >
+                  Thành viên ({members.length})
+                </span>
+                <MemberManager
+                  members={members}
+                  onAddMember={handleAddMember}
+                  onRemoveMember={handleRemoveMember}
+                  onUpdateMember={handleUpdateMember}
+                />
+              </section>
+            </>
+          ) : (
+            <>
+              {/* KHI CHUYẾN ĐI ĐANG DIỄN RA */}
+              {/* 1. Thành viên */}
+              <section
+                style={{
+                  backgroundColor: 'var(--card-bg)',
+                  borderColor: 'var(--card-border)',
+                  color: 'var(--text-main)',
+                }}
+                className="rounded-2xl px-4 py-3.5 border-2 space-y-2 shadow-sm"
+              >
+                <span
+                  style={{ color: 'var(--accent)' }}
+                  className="text-xs font-black uppercase tracking-wider"
+                >
+                  Thành viên ({members.length})
+                </span>
+                <MemberManager
+                  members={members}
+                  onAddMember={handleAddMember}
+                  onRemoveMember={handleRemoveMember}
+                  onUpdateMember={handleUpdateMember}
+                />
+              </section>
+
+              {/* 2. Add / Edit Expense Form */}
+              <ExpenseForm
+                members={members}
+                rates={rates}
+                onAddExpense={handleAddExpense}
+                editingExpense={editingExpense}
+                onCancelEdit={() => setEditingExpense(null)}
+                onUpdateExpense={handleUpdateExpense}
+                tripEnded={tripEnded}
+                isHighlighted={isFormHighlighted}
+                formRef={formRef}
+                titleInputRef={titleInputRef}
+              />
+
+              {/* 3. Overview: Total group spending */}
+              <SummaryCards calculation={calculation} />
+
+              {/* 4. End Trip button */}
+              <SettlementPlan
+                calculation={calculation}
+                completedTxIds={completedTxIds}
+                onToggleCompleteTx={handleToggleCompleteTx}
+                tripEnded={tripEnded}
+                onEndTrip={handleToggleEndTrip}
+                onTriggerAddExpense={handleTriggerAddExpense}
+                recentlyRecalculated={recentlyRecalculated}
+                onDismissRecalculated={() => setRecentlyRecalculated(false)}
+              />
+
+              {/* 5. Expense history */}
+              {expenses.length > 0 && (
+                <section
+                  style={{
+                    backgroundColor: 'var(--card-bg)',
+                    borderColor: 'var(--card-border)',
+                    color: 'var(--text-main)',
+                  }}
+                  className="rounded-2xl p-4 border-2 space-y-2.5 shadow-sm"
+                >
+                  <span
+                    style={{ color: 'var(--accent)' }}
+                    className="text-xs font-black uppercase tracking-wider"
+                  >
+                    Lịch sử chi tiêu ({expenses.length})
+                  </span>
+                  <ExpenseList
+                    expenses={expenses}
+                    members={members}
+                    rates={rates}
+                    onDeleteExpense={handleDeleteExpense}
+                    onEditExpense={(exp) => {
+                      setEditingExpense(exp)
+                      handleTriggerAddExpense()
+                    }}
+                  />
+                </section>
+              )}
+            </>
           )}
         </main>
       </div>

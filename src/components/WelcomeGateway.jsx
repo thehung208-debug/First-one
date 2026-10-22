@@ -25,7 +25,7 @@ export default function WelcomeGateway({
 }) {
   const [isCreating, setIsCreating] = useState(false)
   const [newTripName, setNewTripName] = useState('')
-  const [copyMembers, setCopyMembers] = useState(true)
+  const [copyMembers, setCopyMembers] = useState(false)
   const [showOtherTrips, setShowOtherTrips] = useState(false)
 
   const activeTrip = trips.find(t => t.id === activeTripId) || trips[0]
@@ -43,7 +43,7 @@ export default function WelcomeGateway({
   const handleStartCreate = () => {
     setIsCreating(true)
     setNewTripName(`Chuyến đi ${trips.length + 1}`)
-    setCopyMembers(true)
+    setCopyMembers(false)
   }
 
   const handleConfirmCreate = (e) => {
@@ -261,7 +261,7 @@ export default function WelcomeGateway({
                       onChange={(e) => setCopyMembers(e.target.checked)}
                       className="rounded accent-amber-600 cursor-pointer"
                     />
-                    <span>Sao chép {activeTrip.members.length} thành viên từ chuyến cũ ({activeTrip.members.map(m => m.name).join(', ')})</span>
+                    <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến cũ (bỏ chọn để bắt đầu lại từ đầu)</span>
                   </label>
                 )}
 
