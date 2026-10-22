@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import Header from './components/Header'
 import MemberManager from './components/MemberManager'
 import ExpenseForm from './components/ExpenseForm'
@@ -46,6 +46,11 @@ export default function App() {
 
   const [editingExpense, setEditingExpense] = useState(null)
   const [tripEnded, setTripEnded] = useState(false)
+  const [isFormHighlighted, setIsFormHighlighted] = useState(false)
+  const [recentlyRecalculated, setRecentlyRecalculated] = useState(false)
+
+  const formRef = useRef(null)
+  const titleInputRef = useRef(null)
 
   // Persist
   useEffect(() => { localStorage.setItem(STORAGE_KEYS.MEMBERS, JSON.stringify(members)) }, [members])
@@ -62,6 +67,17 @@ export default function App() {
 
   const calculation = useMemo(() => calculateSettlement(members, expenses, rates), [members, expenses, rates])
 
+  const handleTriggerAddExpense = () => {
+    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    setIsFormHighlighted(true)
+    setTimeout(() => {
+      titleInputRef.current?.focus()
+    }, 350)
+    setTimeout(() => {
+      setIsFormHighlighted(false)
+    }, 2000)
+  }
+
   // Handlers
   const handleAddMember = (m) => setMembers(prev => [...prev, m])
   const handleRemoveMember = (id) => {
@@ -72,12 +88,33 @@ export default function App() {
   }
   const handleUpdateMember = (id, updates) => setMembers(prev => prev.map(m => m.id === id ? { ...m, ...updates } : m))
 
-  const handleAddExpense = (exp) => setExpenses(prev => [exp, ...prev])
+  const handleAddExpense = (exp) => {
+    setExpenses(prev => [exp, ...prev])
+    if (tripEnded) {
+      setRecentlyRecalculated(true)
+      setTimeout(() => {
+        const el = document.getElementById('settlement-plan-section')
+        el?.scrollIntoView({ behavior: 'smooth' })
+      }, 350)
+    }
+  }
+
   const handleDeleteExpense = (id) => {
     setExpenses(prev => prev.filter(e => e.id !== id))
     if (editingExpense?.id === id) setEditingExpense(null)
+    if (tripEnded) setRecentlyRecalculated(true)
   }
-  const handleUpdateExpense = (id, updates) => setExpenses(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e))
+
+  const handleUpdateExpense = (id, updates) => {
+    setExpenses(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e))
+    if (tripEnded) {
+      setRecentlyRecalculated(true)
+      setTimeout(() => {
+        const el = document.getElementById('settlement-plan-section')
+        el?.scrollIntoView({ behavior: 'smooth' })
+      }, 350)
+    }
+  }
 
   const handleToggleCompleteTx = (txId) => {
     setCompletedTxIds(prev => prev.includes(txId) ? prev.filter(id => id !== txId) : [...prev, txId])
@@ -162,6 +199,10 @@ export default function App() {
             editingExpense={editingExpense}
             onCancelEdit={() => setEditingExpense(null)}
             onUpdateExpense={handleUpdateExpense}
+            tripEnded={tripEnded}
+            isHighlighted={isFormHighlighted}
+            formRef={formRef}
+            titleInputRef={titleInputRef}
           />
 
           {/* Overview: Total group spending */}
@@ -174,6 +215,9 @@ export default function App() {
             onToggleCompleteTx={handleToggleCompleteTx}
             tripEnded={tripEnded}
             onEndTrip={() => setTripEnded(prev => !prev)}
+            onTriggerAddExpense={handleTriggerAddExpense}
+            recentlyRecalculated={recentlyRecalculated}
+            onDismissRecalculated={() => setRecentlyRecalculated(false)}
           />
 
           {/* Expense history */}

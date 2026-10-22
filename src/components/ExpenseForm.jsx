@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PlusCircle, Check, User, Users } from 'lucide-react'
+import { PlusCircle, Check, User, Users, Sparkles, CheckCheck } from 'lucide-react'
 import { SUPPORTED_CURRENCIES, convertToVND, formatVND } from '../utils/currency'
 
 function formatInputDisplay(value) {
@@ -23,7 +23,11 @@ export default function ExpenseForm({
   onAddExpense,
   editingExpense,
   onCancelEdit,
-  onUpdateExpense
+  onUpdateExpense,
+  tripEnded = false,
+  isHighlighted = false,
+  formRef,
+  titleInputRef
 }) {
   const [title, setTitle] = useState('')
   const [amountDisplay, setAmountDisplay] = useState('')
@@ -76,6 +80,17 @@ export default function ExpenseForm({
     })
   }
 
+  const isAllSelected = members.length > 0 && participantIds.length === members.length
+
+  const handleToggleAllParticipants = () => {
+    if (isAllSelected) {
+      const keepId = members.some(m => m.id === paidById) ? paidById : members[0]?.id
+      setParticipantIds(keepId ? [keepId] : [])
+    } else {
+      setParticipantIds(members.map(m => m.id))
+    }
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault()
     if (!title.trim() || numAmount <= 0 || !paidById) return
@@ -121,14 +136,35 @@ export default function ExpenseForm({
 
   return (
     <form
+      ref={formRef}
+      id="expense-form-section"
       onSubmit={handleSubmit}
       style={{
         backgroundColor: 'var(--card-bg)',
-        borderColor: 'var(--card-border)',
+        borderColor: isHighlighted ? 'var(--accent)' : 'var(--card-border)',
         color: 'var(--text-main)',
       }}
-      className="rounded-2xl p-4 sm:p-5 space-y-3.5 border-2 shadow-sm transition-all duration-300"
+      className={`rounded-2xl p-4 sm:p-5 space-y-3.5 border-2 shadow-sm transition-all duration-300 ${
+        isHighlighted ? 'ring-4 ring-amber-400/60 shadow-lg scale-[1.01]' : ''
+      }`}
     >
+      {/* Alert banner when trip is ended and user is adding missing expenses */}
+      {tripEnded && !editingExpense && (
+        <div
+          style={{
+            backgroundColor: 'var(--badge-bg)',
+            borderColor: 'var(--card-border)',
+            color: 'var(--badge-text)',
+          }}
+          className="px-3.5 py-2.5 rounded-xl text-xs font-bold border flex items-center justify-between gap-2 animate-fade-in"
+        >
+          <div className="flex items-center gap-2">
+            <Sparkles className="w-4 h-4 shrink-0 text-amber-600" />
+            <span>Bổ sung chi tiêu: Bảng chia tiền bên dưới sẽ tự động cập nhật ngay!</span>
+          </div>
+        </div>
+      )}
+
       {editingExpense && (
         <div className="flex items-center justify-between text-xs font-bold">
           <span style={{ color: 'var(--accent)' }}>Đang sửa khoản chi</span>
@@ -138,6 +174,7 @@ export default function ExpenseForm({
 
       {/* Title */}
       <input
+        ref={titleInputRef}
         type="text"
         required
         placeholder="Chi cho cái gì? (vd: Ăn tối, Khách sạn...)"
@@ -256,15 +293,23 @@ export default function ExpenseForm({
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-              <Users className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} /> Chia cho? ({participantIds.length})
+              <Users className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} /> Chia cho? ({participantIds.length}/{members.length})
             </label>
             <button
               type="button"
-              onClick={() => setParticipantIds(members.map(m => m.id))}
-              style={{ color: 'var(--accent)' }}
-              className="text-[10px] font-bold hover:underline cursor-pointer"
+              onClick={handleToggleAllParticipants}
+              style={{
+                backgroundColor: isAllSelected ? 'var(--badge-bg)' : 'transparent',
+                color: 'var(--accent)',
+                borderColor: 'var(--card-border)',
+              }}
+              className="text-[11px] font-bold hover:underline cursor-pointer px-1.5 py-0.5 rounded-md border flex items-center gap-1"
             >
-              Tất cả
+              {isAllSelected ? (
+                <><CheckCheck className="w-3 h-3" /> Đã chọn tất cả</>
+              ) : (
+                'Chọn tất cả (All)'
+              )}
             </button>
           </div>
           <div
@@ -274,6 +319,24 @@ export default function ExpenseForm({
             }}
             className="flex flex-wrap gap-1 p-1.5 rounded-xl border max-h-28 overflow-y-auto"
           >
+            {/* Quick prominent All Pill */}
+            <button
+              type="button"
+              onClick={handleToggleAllParticipants}
+              style={{
+                backgroundColor: isAllSelected ? 'var(--accent)' : 'var(--card-bg)',
+                color: isAllSelected ? 'var(--accent-text)' : 'var(--text-main)',
+                borderColor: isAllSelected ? 'var(--accent)' : 'var(--input-border)',
+              }}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-extrabold border transition-all cursor-pointer ${
+                isAllSelected ? 'shadow-2xs' : 'opacity-75 hover:opacity-100 hover:border-amber-600'
+              }`}
+              title={isAllSelected ? 'Bấm để bỏ chọn bớt' : 'Bấm để chọn tất cả thành viên'}
+            >
+              <Users className="w-3 h-3" />
+              <span>All</span>
+            </button>
+
             {members.map(m => {
               const included = participantIds.includes(m.id)
               return (
