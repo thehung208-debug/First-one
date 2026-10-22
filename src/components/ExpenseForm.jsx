@@ -183,7 +183,7 @@ export default function ExpenseForm({
         >
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 shrink-0 text-amber-600" />
-            <span>Bổ sung chi tiêu: Bảng chia tiền bên dưới sẽ tự động cập nhật ngay!</span>
+            <span>Nạp thêm chi tiêu: Khi lưu, chuyến đi sẽ tự động chuyển về trạng thái tiếp tục đi!</span>
           </div>
         </div>
       )}

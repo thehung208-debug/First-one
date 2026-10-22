@@ -130,14 +130,20 @@ export default function App() {
   const calculation = useMemo(() => calculateSettlement(members, expenses, rates), [members, expenses, rates])
 
   const handleTriggerAddExpense = () => {
-    formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
-    setIsFormHighlighted(true)
+    // Nếu muốn nạp thêm tiền thì tự động coi như đang đi tiếp
+    if (tripEnded) {
+      updateActiveTrip(t => ({ ...t, tripEnded: false }))
+    }
     setTimeout(() => {
-      titleInputRef.current?.focus()
-    }, 350)
-    setTimeout(() => {
-      setIsFormHighlighted(false)
-    }, 2000)
+      formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      setIsFormHighlighted(true)
+      setTimeout(() => {
+        titleInputRef.current?.focus()
+      }, 350)
+      setTimeout(() => {
+        setIsFormHighlighted(false)
+      }, 2000)
+    }, 50)
   }
 
   // Handlers for active trip
@@ -162,14 +168,13 @@ export default function App() {
   }
 
   const handleAddExpense = (exp) => {
-    updateActiveTrip(t => ({ ...t, expenses: [exp, ...t.expenses] }))
-    if (tripEnded) {
-      setRecentlyRecalculated(true)
-      setTimeout(() => {
-        const el = document.getElementById('settlement-plan-section')
-        el?.scrollIntoView({ behavior: 'smooth' })
-      }, 350)
-    }
+    // Nạp thêm chi tiêu: tự động coi như đang đi tiếp (tripEnded: false)
+    updateActiveTrip(t => ({
+      ...t,
+      expenses: [exp, ...t.expenses],
+      tripEnded: false
+    }))
+    setRecentlyRecalculated(false)
   }
 
   const handleDeleteExpense = (id) => {
