@@ -5,29 +5,69 @@ import ExpenseForm from './components/ExpenseForm'
 import ExpenseList from './components/ExpenseList'
 import SummaryCards from './components/SummaryCards'
 import SettlementPlan from './components/SettlementPlan'
+import TripSelector from './components/TripSelector'
 import { DEFAULT_RATES, fetchLiveExchangeRates } from './utils/currency'
 import { calculateSettlement } from './utils/settlement'
 
 const STORAGE_KEYS = {
-  MEMBERS: 'fg_members_v1',
-  EXPENSES: 'fg_expenses_v1',
+  TRIPS: 'fg_trips_v2',
+  ACTIVE_TRIP_ID: 'fg_active_trip_id_v2',
   RATES: 'fg_rates_v1',
-  COMPLETED_TXS: 'fg_completed_txs_v1',
+  LEGACY_MEMBERS: 'fg_members_v1',
+  LEGACY_EXPENSES: 'fg_expenses_v1',
+  LEGACY_COMPLETED_TXS: 'fg_completed_txs_v1',
 }
 
 export default function App() {
-  const [members, setMembers] = useState(() => {
+  const [trips, setTrips] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEYS.MEMBERS)
-      return saved ? JSON.parse(saved) : []
-    } catch { return [] }
+      const saved = localStorage.getItem(STORAGE_KEYS.TRIPS)
+      if (saved) {
+        const parsed = JSON.parse(saved)
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed
+      }
+
+      // Seamless migration from legacy data
+      const legacyMembers = JSON.parse(localStorage.getItem(STORAGE_KEYS.LEGACY_MEMBERS) || '[]')
+      const legacyExpenses = JSON.parse(localStorage.getItem(STORAGE_KEYS.LEGACY_EXPENSES) || '[]')
+      const legacyCompleted = JSON.parse(localStorage.getItem(STORAGE_KEYS.LEGACY_COMPLETED_TXS) || '[]')
+
+      const initialTrip = {
+        id: `trip_${Date.now()}`,
+        name: 'Chuyến đi 1',
+        createdAt: new Date().toISOString(),
+        members: legacyMembers.length > 0 ? legacyMembers : [
+          { id: 'm1', name: 'Tôi', color: '#c4452a' },
+          { id: 'm2', name: 'Bạn đồng hành', color: '#2563eb' }
+        ],
+        expenses: legacyExpenses || [],
+        completedTxIds: legacyCompleted || [],
+        tripEnded: false
+      }
+      return [initialTrip]
+    } catch {
+      return [{
+        id: `trip_${Date.now()}`,
+        name: 'Chuyến đi 1',
+        createdAt: new Date().toISOString(),
+        members: [
+          { id: 'm1', name: 'Tôi', color: '#c4452a' },
+          { id: 'm2', name: 'Bạn đồng hành', color: '#2563eb' }
+        ],
+        expenses: [],
+        completedTxIds: [],
+        tripEnded: false
+      }]
+    }
   })
 
-  const [expenses, setExpenses] = useState(() => {
+  const [activeTripId, setActiveTripId] = useState(() => {
     try {
-      const saved = localStorage.getItem(STORAGE_KEYS.EXPENSES)
-      return saved ? JSON.parse(saved) : []
-    } catch { return [] }
+      const saved = localStorage.getItem(STORAGE_KEYS.ACTIVE_TRIP_ID)
+      return saved || trips[0]?.id || ''
+    } catch {
+      return trips[0]?.id || ''
+    }
   })
 
   const [rates, setRates] = useState(() => {
@@ -37,26 +77,42 @@ export default function App() {
     } catch { return DEFAULT_RATES }
   })
 
-  const [completedTxIds, setCompletedTxIds] = useState(() => {
-    try {
-      const saved = localStorage.getItem(STORAGE_KEYS.COMPLETED_TXS)
-      return saved ? JSON.parse(saved) : []
-    } catch { return [] }
-  })
-
   const [editingExpense, setEditingExpense] = useState(null)
-  const [tripEnded, setTripEnded] = useState(false)
   const [isFormHighlighted, setIsFormHighlighted] = useState(false)
   const [recentlyRecalculated, setRecentlyRecalculated] = useState(false)
 
   const formRef = useRef(null)
   const titleInputRef = useRef(null)
 
-  // Persist
-  useEffect(() => { localStorage.setItem(STORAGE_KEYS.MEMBERS, JSON.stringify(members)) }, [members])
-  useEffect(() => { localStorage.setItem(STORAGE_KEYS.EXPENSES, JSON.stringify(expenses)) }, [expenses])
-  useEffect(() => { localStorage.setItem(STORAGE_KEYS.RATES, JSON.stringify(rates)) }, [rates])
-  useEffect(() => { localStorage.setItem(STORAGE_KEYS.COMPLETED_TXS, JSON.stringify(completedTxIds)) }, [completedTxIds])
+  // Derive active trip and properties
+  const activeTrip = trips.find(t => t.id === activeTripId) || trips[0] || {
+    id: 'default',
+    name: 'Chuyến đi 1',
+    members: [],
+    expenses: [],
+    completedTxIds: [],
+    tripEnded: false
+  }
+
+  const members = activeTrip.members || []
+  const expenses = activeTrip.expenses || []
+  const completedTxIds = activeTrip.completedTxIds || []
+  const tripEnded = Boolean(activeTrip.tripEnded)
+
+  // Persist trips & active trip id
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.TRIPS, JSON.stringify(trips))
+  }, [trips])
+
+  useEffect(() => {
+    if (activeTrip?.id) {
+      localStorage.setItem(STORAGE_KEYS.ACTIVE_TRIP_ID, activeTrip.id)
+    }
+  }, [activeTrip?.id])
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEYS.RATES, JSON.stringify(rates))
+  }, [rates])
 
   // Fetch live rates silently on mount
   useEffect(() => {
@@ -64,6 +120,16 @@ export default function App() {
       if (result?.rates) setRates(result.rates)
     })
   }, [])
+
+  // Helper to update active trip
+  const updateActiveTrip = (updater) => {
+    setTrips(prev => prev.map(t => {
+      if (t.id === activeTrip.id) {
+        return updater(t)
+      }
+      return t
+    }))
+  }
 
   const calculation = useMemo(() => calculateSettlement(members, expenses, rates), [members, expenses, rates])
 
@@ -78,18 +144,29 @@ export default function App() {
     }, 2000)
   }
 
-  // Handlers
-  const handleAddMember = (m) => setMembers(prev => [...prev, m])
+  // Handlers for active trip
+  const handleAddMember = (m) => updateActiveTrip(t => ({ ...t, members: [...t.members, m] }))
+
   const handleRemoveMember = (id) => {
-    setMembers(prev => prev.filter(m => m.id !== id))
-    setExpenses(prev => prev.filter(e => e.paidById !== id).map(e => ({
-      ...e, participantIds: (e.participantIds || []).filter(p => p !== id)
-    })))
+    updateActiveTrip(t => ({
+      ...t,
+      members: t.members.filter(m => m.id !== id),
+      expenses: t.expenses.filter(e => e.paidById !== id).map(e => ({
+        ...e,
+        participantIds: (e.participantIds || []).filter(p => p !== id)
+      }))
+    }))
   }
-  const handleUpdateMember = (id, updates) => setMembers(prev => prev.map(m => m.id === id ? { ...m, ...updates } : m))
+
+  const handleUpdateMember = (id, updates) => {
+    updateActiveTrip(t => ({
+      ...t,
+      members: t.members.map(m => m.id === id ? { ...m, ...updates } : m)
+    }))
+  }
 
   const handleAddExpense = (exp) => {
-    setExpenses(prev => [exp, ...prev])
+    updateActiveTrip(t => ({ ...t, expenses: [exp, ...t.expenses] }))
     if (tripEnded) {
       setRecentlyRecalculated(true)
       setTimeout(() => {
@@ -100,13 +177,16 @@ export default function App() {
   }
 
   const handleDeleteExpense = (id) => {
-    setExpenses(prev => prev.filter(e => e.id !== id))
+    updateActiveTrip(t => ({ ...t, expenses: t.expenses.filter(e => e.id !== id) }))
     if (editingExpense?.id === id) setEditingExpense(null)
     if (tripEnded) setRecentlyRecalculated(true)
   }
 
   const handleUpdateExpense = (id, updates) => {
-    setExpenses(prev => prev.map(e => e.id === id ? { ...e, ...updates } : e))
+    updateActiveTrip(t => ({
+      ...t,
+      expenses: t.expenses.map(e => e.id === id ? { ...e, ...updates } : e)
+    }))
     if (tripEnded) {
       setRecentlyRecalculated(true)
       setTimeout(() => {
@@ -117,7 +197,62 @@ export default function App() {
   }
 
   const handleToggleCompleteTx = (txId) => {
-    setCompletedTxIds(prev => prev.includes(txId) ? prev.filter(id => id !== txId) : [...prev, txId])
+    updateActiveTrip(t => ({
+      ...t,
+      completedTxIds: t.completedTxIds.includes(txId)
+        ? t.completedTxIds.filter(id => id !== txId)
+        : [...t.completedTxIds, txId]
+    }))
+  }
+
+  const handleToggleEndTrip = () => {
+    updateActiveTrip(t => ({ ...t, tripEnded: !t.tripEnded }))
+  }
+
+  // Trip management operations
+  const handleSelectTrip = (tripId) => {
+    setActiveTripId(tripId)
+    setEditingExpense(null)
+    setRecentlyRecalculated(false)
+  }
+
+  const handleCreateTrip = ({ name, copyMembersFromActive }) => {
+    const newId = `trip_${Date.now()}`
+    const membersToUse = copyMembersFromActive && activeTrip?.members?.length > 0
+      ? activeTrip.members.map(m => ({ ...m }))
+      : [
+          { id: `m_${Date.now()}_1`, name: 'Tôi', color: '#c4452a' },
+          { id: `m_${Date.now()}_2`, name: 'Bạn đồng hành', color: '#2563eb' }
+        ]
+
+    const newTrip = {
+      id: newId,
+      name,
+      createdAt: new Date().toISOString(),
+      members: membersToUse,
+      expenses: [],
+      completedTxIds: [],
+      tripEnded: false
+    }
+
+    setTrips(prev => [newTrip, ...prev])
+    setActiveTripId(newId)
+    setEditingExpense(null)
+    setRecentlyRecalculated(false)
+  }
+
+  const handleRenameTrip = (tripId, newName) => {
+    setTrips(prev => prev.map(t => t.id === tripId ? { ...t, name: newName } : t))
+  }
+
+  const handleDeleteTrip = (tripId) => {
+    setTrips(prev => {
+      const remaining = prev.filter(t => t.id !== tripId)
+      if (activeTripId === tripId && remaining.length > 0) {
+        setActiveTripId(remaining[0].id)
+      }
+      return remaining
+    })
   }
 
   return (
@@ -144,26 +279,37 @@ export default function App() {
           }}
           className="sticky top-0 z-30 border-b-2 shadow-xs"
         >
-          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between">
-            <div className="flex items-center gap-3">
+          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
               <img
                 src="/forrest.png"
                 alt="Forrest Gump"
                 style={{ borderColor: 'var(--accent)' }}
-                className="w-11 h-11 rounded-xl object-cover shadow-sm border-2 rotate-[-2deg]"
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover shadow-sm border-2 rotate-[-2deg] shrink-0"
               />
-              <div>
+              <div className="min-w-0">
                 <h1
                   style={{ color: 'var(--accent)' }}
-                  className="text-xl sm:text-2xl font-black tracking-tight leading-tight"
+                  className="text-lg sm:text-2xl font-black tracking-tight leading-tight truncate"
                 >
                   Forrest <span>Gump</span>
                 </h1>
-                <p className="text-[11px] font-semibold opacity-75" style={{ color: 'var(--text-muted)' }}>
+                <p className="text-[10px] sm:text-[11px] font-semibold opacity-75 truncate" style={{ color: 'var(--text-muted)' }}>
                   Sổ tay chia tiền du lịch
                 </p>
               </div>
             </div>
+
+            {/* Trip Selector on Top Right */}
+            <TripSelector
+              trips={trips}
+              activeTripId={activeTrip?.id || activeTripId}
+              rates={rates}
+              onSelectTrip={handleSelectTrip}
+              onCreateTrip={handleCreateTrip}
+              onRenameTrip={handleRenameTrip}
+              onDeleteTrip={handleDeleteTrip}
+            />
           </div>
         </header>
 
@@ -214,7 +360,7 @@ export default function App() {
             completedTxIds={completedTxIds}
             onToggleCompleteTx={handleToggleCompleteTx}
             tripEnded={tripEnded}
-            onEndTrip={() => setTripEnded(prev => !prev)}
+            onEndTrip={handleToggleEndTrip}
             onTriggerAddExpense={handleTriggerAddExpense}
             recentlyRecalculated={recentlyRecalculated}
             onDismissRecalculated={() => setRecentlyRecalculated(false)}
