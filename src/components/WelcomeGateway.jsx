@@ -126,7 +126,7 @@ export default function WelcomeGateway({
                     <Clock className="w-2.5 h-2.5" /> Đang diễn ra
                   </span>
                 ) : (
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-900 bg-amber-500/20 px-2 py-0.5 rounded-full">
+                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-900 bg-rose-500/20 px-2 py-0.5 rounded-full">
                     <Flag className="w-2.5 h-2.5" /> Đang chia tiền
                   </span>
                 )}
@@ -186,7 +186,7 @@ export default function WelcomeGateway({
                               backgroundColor: 'var(--card-bg)',
                               borderColor: 'var(--input-border)',
                             }}
-                            className="p-2.5 rounded-xl border flex items-center justify-between text-xs cursor-pointer hover:border-amber-600 transition-all"
+                            className="p-2.5 rounded-xl border flex items-center justify-between text-xs cursor-pointer hover:border-rose-600 transition-all"
                           >
                             <div className="min-w-0 pr-2">
                               <span className="font-bold block truncate">{trip.name}</span>
@@ -259,7 +259,7 @@ export default function WelcomeGateway({
                       type="checkbox"
                       checked={copyMembers}
                       onChange={(e) => setCopyMembers(e.target.checked)}
-                      className="rounded accent-amber-600 cursor-pointer"
+                      className="rounded accent-rose-600 cursor-pointer"
                     />
                     <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến cũ (bỏ chọn để bắt đầu lại từ đầu)</span>
                   </label>

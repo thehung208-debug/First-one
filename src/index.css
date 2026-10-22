@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  /* Nền vàng nhẹ nhàng & Điểm nhấn Đỏ gạch (Warm Buttercream & Terracotta Brick) */
-  --app-bg: #fdf5e6;          /* Vàng kem nhẹ dịu mắt, ấm áp */
-  --card-bg: #fffdf9;         /* Thẻ nội dung màu trắng ngà thanh thoát */
-  --card-border: #f0deca;     /* Viền thẻ màu vàng mật ong nhạt */
-  --input-bg: #faeedb;        /* Ô nhập liệu màu vàng nhạt ấm cúng */
-  --input-border: #e8d0b5;    /* Viền ô nhập liệu */
-  --text-main: #3d2319;       /* Chữ chính màu nâu đen đậm dễ đọc */
-  --text-muted: #805c4d;      /* Chữ phụ màu nâu đất */
-  --accent: #c4452a;          /* Đỏ gạch nổi bật, ấm áp, đậm chất du lịch */
-  --accent-hover: #a8361e;    /* Đỏ gạch đậm khi chạm/hover */
-  --accent-text: #ffffff;     /* Chữ trắng nổi trên nền đỏ gạch */
-  --badge-bg: #fde8e3;        /* Thẻ phụ màu hồng đỏ gạch nhạt */
-  --badge-text: #a8361e;      /* Chữ đỏ gạch trên thẻ phụ */
-  --header-bg: #fbeed9;       /* Header màu vàng kem dịu mắt */
-  --header-border: #ebd3b7;   /* Viền header */
+  /* Giao diện Đỏ Sang Trọng & Rực Rỡ (Ruby Red Theme) */
+  --app-bg: #fff5f5;          /* Nền đỏ kem / hồng phấn rất nhẹ dịu mắt */
+  --card-bg: #ffffff;         /* Thẻ nội dung màu trắng tinh tế */
+  --card-border: #fecdd3;     /* Viền thẻ màu đỏ hồng nhạt */
+  --input-bg: #fff1f2;        /* Ô nhập liệu màu đỏ kem nhạt */
+  --input-border: #fca5a5;    /* Viền ô nhập liệu màu đỏ san hô nhẹ */
+  --text-main: #4c0519;       /* Chữ chính màu đỏ rượu vang đậm sắc nét */
+  --text-muted: #9f1239;      /* Chữ phụ màu đỏ mận */
+  --accent: #e11d48;          /* Đỏ Ruby rực rỡ, cuốn hút, tràn đầy năng lượng */
+  --accent-hover: #be123c;    /* Đỏ Ruby đậm khi chạm/hover */
+  --accent-text: #ffffff;     /* Chữ trắng nổi bật trên nền đỏ */
+  --badge-bg: #ffe4e6;        /* Thẻ phụ màu hồng đỏ pastel */
+  --badge-text: #9f1239;      /* Chữ đỏ thẫm trên thẻ phụ */
+  --header-bg: #fff1f2;       /* Header màu đỏ kem thanh lịch */
+  --header-border: #fecdd3;   /* Viền header */
 }
 
 #root,

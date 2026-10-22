@@ -187,7 +187,7 @@ export default function TripSelector({
                       borderColor: isActive ? 'var(--accent)' : 'var(--input-border)',
                     }}
                     className={`p-3 rounded-2xl border-2 transition-all flex items-center justify-between gap-2.5 cursor-pointer hover:shadow-xs ${
-                      isActive ? 'ring-2 ring-amber-400/50 shadow-xs' : 'opacity-90 hover:opacity-100'
+                      isActive ? 'ring-2 ring-rose-400/50 shadow-xs' : 'opacity-90 hover:opacity-100'
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0 flex-1">
@@ -276,7 +276,7 @@ export default function TripSelector({
                                   <Clock className="w-2.5 h-2.5" /> Đang diễn ra
                                 </span>
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-amber-800 bg-amber-500/15 px-2 py-0.5 rounded-md">
+                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-800 bg-rose-500/15 px-2 py-0.5 rounded-md">
                                   <Flag className="w-2.5 h-2.5" /> Đang chia tiền
                                 </span>
                               )}
@@ -348,7 +348,7 @@ export default function TripSelector({
                         type="checkbox"
                         checked={copyMembers}
                         onChange={(e) => setCopyMembers(e.target.checked)}
-                        className="rounded accent-amber-600 cursor-pointer"
+                        className="rounded accent-rose-600 cursor-pointer"
                       />
                       <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến này (bỏ chọn để bắt đầu lại từ đầu)</span>
                     </label>
