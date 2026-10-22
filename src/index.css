@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, sans-serif;
+}
+
 :root {
   /* Tông màu Trắng & Đen Tối giản (Monochrome Minimalist) */
   --app-bg: #f5f5f5;          /* Nền xám khói rất nhẹ, dịu mắt, làm nổi bật thẻ */
@@ -20,16 +24,17 @@
 
 #root,
 body {
-  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
   background-color: var(--app-bg);
   color: var(--text-main);
+  letter-spacing: 0.01em;
 }
 
 input,
 button,
 select,
 textarea {
-  font-family: inherit !important;
+  font-family: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 /* Custom subtle scrollbar */

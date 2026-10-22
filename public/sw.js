@@ -1,4 +1,4 @@
-const CACHE_NAME = 'forrest-gump-v4';
+const CACHE_NAME = 'forrest-gump-v5';
 const PRECACHE_ASSETS = [
   '/',
   '/manifest.json',
