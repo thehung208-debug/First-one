@@ -11,6 +11,7 @@
 - **[Sửa lần 1 (Branch: sua-lan-1)](https://github.com/thehung208-debug/First-one/tree/sua-lan-1):** Cập nhật giao diện tông màu Vàng nhẹ và Đỏ gạch.
 - **[Sửa lần 2 (Branch: sua-lan-2)](https://github.com/thehung208-debug/First-one/tree/sua-lan-2):** Giao diện phong cách Trắng Đen (Monochrome).
 - **[Sửa lần 3 (Branch: sua-lan-3)](https://github.com/thehung208-debug/First-one/tree/sua-lan-3):** Hỗ trợ PWA cài đặt app điện thoại, Cloudflare Pages, nút "All" chọn tất cả, bổ sung chi tiêu bị sót sau khi chốt sổ, và quản lý nhiều chuyến đi kèm màn hình chào mừng lúc mới vào.
+- **[Sửa lần 4 (Branch: sua-lan-4)](https://github.com/thehung208-debug/First-one/tree/sua-lan-4):** Khắc phục toàn bộ các nút bấm (button), tối ưu trải nghiệm kết thúc chuyến đi (tự động chuyển sang đi tiếp khi nạp thêm tiền và nút quay lại chuyến đi nổi bật tránh ấn nhầm).
 
 - 🌍 **Đa tiền tệ:** Hỗ trợ nhập trực tiếp bằng nhiều loại tiền tệ: Euro (€ - EUR), Złoty Ba Lan (zł - PLN), VNĐ (₫), USD ($)...
 - ⚡ **Quy đổi thời gian thực:** Tự động quy đổi tỷ giá trực tiếp sang tiền VNĐ theo tỷ giá mở quốc tế.
