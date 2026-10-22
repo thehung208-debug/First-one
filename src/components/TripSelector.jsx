@@ -22,7 +22,8 @@ export default function TripSelector({
   onSelectTrip,
   onCreateTrip,
   onRenameTrip,
-  onDeleteTrip
+  onDeleteTrip,
+  onOpenWelcomeGateway
 }) {
   const [isOpen, setIsOpen] = useState(false)
   const [isCreating, setIsCreating] = useState(false)
@@ -374,17 +375,33 @@ export default function TripSelector({
                   </div>
                 </form>
               ) : (
-                <button
-                  type="button"
-                  onClick={handleStartCreate}
-                  style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'var(--accent-text)',
-                  }}
-                  className="w-full py-2.5 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-                >
-                  <Plus className="w-4 h-4" /> Tạo chuyến đi mới
-                </button>
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    onClick={handleStartCreate}
+                    style={{
+                      backgroundColor: 'var(--accent)',
+                      color: 'var(--accent-text)',
+                    }}
+                    className="w-full py-2.5 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                  >
+                    <Plus className="w-4 h-4" /> Tạo chuyến đi mới
+                  </button>
+
+                  {onOpenWelcomeGateway && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setIsOpen(false)
+                        onOpenWelcomeGateway()
+                      }}
+                      style={{ color: 'var(--text-muted)' }}
+                      className="w-full text-center text-xs font-semibold opacity-70 hover:opacity-100 hover:underline cursor-pointer transition-opacity"
+                    >
+                      Mở màn hình chọn chuyến lúc mới vào
+                    </button>
+                  )}
+                </div>
               )}
             </div>
           </div>
