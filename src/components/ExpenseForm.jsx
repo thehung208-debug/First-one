@@ -37,8 +37,20 @@ export default function ExpenseForm({
   const [category, setCategory] = useState('food')
 
   useEffect(() => {
-    if (members.length > 0 && !paidById) setPaidById(members[0].id)
-    if (members.length > 0 && participantIds.length === 0) setParticipantIds(members.map(m => m.id))
+    if (members.length > 0) {
+      if (!paidById || !members.some(m => m.id === paidById)) {
+        setPaidById(members[0].id)
+      }
+      const validParticipants = participantIds.filter(id => members.some(m => m.id === id))
+      if (validParticipants.length === 0) {
+        setParticipantIds(members.map(m => m.id))
+      } else if (validParticipants.length !== participantIds.length) {
+        setParticipantIds(validParticipants)
+      }
+    } else {
+      setPaidById('')
+      setParticipantIds([])
+    }
   }, [members])
 
   useEffect(() => {
@@ -51,6 +63,16 @@ export default function ExpenseForm({
       setCategory(editingExpense.category || 'food')
     }
   }, [editingExpense, members])
+
+  const handleCancelEdit = () => {
+    setTitle('')
+    setAmountDisplay('')
+    if (members.length > 0) {
+      setPaidById(members[0].id)
+      setParticipantIds(members.map(m => m.id))
+    }
+    onCancelEdit()
+  }
 
   const rawValue = parseInputValue(amountDisplay)
   const numAmount = parseFloat(rawValue) || 0
@@ -73,14 +95,13 @@ export default function ExpenseForm({
   const handleToggleParticipant = (id) => {
     setParticipantIds(prev => {
       if (prev.includes(id)) {
-        if (prev.length === 1) return prev
         return prev.filter(p => p !== id)
       }
       return [...prev, id]
     })
   }
 
-  const isAllSelected = members.length > 0 && participantIds.length === members.length
+  const isAllSelected = members.length > 0 && members.every(m => participantIds.includes(m.id))
 
   const handleToggleAllParticipants = () => {
     if (isAllSelected) {
@@ -107,7 +128,7 @@ export default function ExpenseForm({
 
     if (editingExpense) {
       onUpdateExpense(editingExpense.id, payload)
-      onCancelEdit()
+      handleCancelEdit()
     } else {
       onAddExpense({
         ...payload,
@@ -121,6 +142,8 @@ export default function ExpenseForm({
   if (members.length < 2) {
     return (
       <div
+        ref={formRef}
+        id="expense-form-section"
         style={{
           backgroundColor: 'var(--card-bg)',
           borderColor: 'var(--card-border)',
@@ -129,7 +152,7 @@ export default function ExpenseForm({
         className="rounded-2xl p-6 text-center text-sm border-2 shadow-sm"
       >
         <Users className="w-8 h-8 mx-auto mb-2 opacity-50" />
-        <p className="font-semibold">Thêm ít nhất 2 thành viên để bắt đầu</p>
+        <p className="font-semibold">Thêm ít nhất 2 thành viên để bắt đầu nhập chi tiêu</p>
       </div>
     )
   }
@@ -168,7 +191,7 @@ export default function ExpenseForm({
       {editingExpense && (
         <div className="flex items-center justify-between text-xs font-bold">
           <span style={{ color: 'var(--accent)' }}>Đang sửa khoản chi</span>
-          <button type="button" onClick={onCancelEdit} className="opacity-70 hover:opacity-100 underline cursor-pointer">Hủy</button>
+          <button type="button" onClick={handleCancelEdit} className="opacity-70 hover:opacity-100 underline cursor-pointer">Hủy</button>
         </div>
       )}
 

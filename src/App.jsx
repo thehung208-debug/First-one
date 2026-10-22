@@ -375,6 +375,7 @@ export default function App() {
 
               {/* 4. Form bổ sung chi tiêu (nếu còn nội dung chưa nhập) */}
               <ExpenseForm
+                key={activeTrip?.id || activeTripId}
                 members={members}
                 rates={rates}
                 onAddExpense={handleAddExpense}
@@ -438,6 +439,7 @@ export default function App() {
 
               {/* 2. Add / Edit Expense Form */}
               <ExpenseForm
+                key={activeTrip?.id || activeTripId}
                 members={members}
                 rates={rates}
                 onAddExpense={handleAddExpense}

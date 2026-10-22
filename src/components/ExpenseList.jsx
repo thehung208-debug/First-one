@@ -64,10 +64,10 @@ export default function ExpenseList({
                   )}
                 </div>
                 <div className="flex items-center gap-0.5 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                  <button onClick={() => onEditExpense(exp)} className="p-1 rounded opacity-70 hover:opacity-100 cursor-pointer" title="Chỉnh sửa">
+                  <button type="button" onClick={() => onEditExpense(exp)} className="p-1 rounded opacity-70 hover:opacity-100 cursor-pointer" title="Chỉnh sửa">
                     <Edit3 className="w-3.5 h-3.5" />
                   </button>
-                  <button onClick={() => onDeleteExpense(exp.id)} className="p-1 rounded opacity-70 hover:opacity-100 hover:text-rose-500 cursor-pointer" title="Xóa">
+                  <button type="button" onClick={() => onDeleteExpense(exp.id)} className="p-1 rounded opacity-70 hover:opacity-100 hover:text-rose-500 cursor-pointer" title="Xóa">
                     <Trash2 className="w-3.5 h-3.5" />
                   </button>
                 </div>
@@ -79,6 +79,7 @@ export default function ExpenseList({
 
       {hasMore && (
         <button
+          type="button"
           onClick={() => setIsExpanded(!isExpanded)}
           style={{ color: 'var(--accent)' }}
           className="w-full flex items-center justify-center gap-1.5 py-1.5 text-xs font-bold hover:underline transition-colors cursor-pointer"

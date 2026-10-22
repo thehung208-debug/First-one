@@ -34,12 +34,11 @@ export default function SettlementPlan({
       <button
         type="button"
         onClick={onEndTrip}
-        disabled={transactions.length === 0}
         style={{
           backgroundColor: 'var(--accent)',
           color: 'var(--accent-text)',
         }}
-        className="w-full py-3.5 rounded-2xl text-sm font-black tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-30 disabled:cursor-not-allowed hover:opacity-95"
+        className="w-full py-3.5 rounded-2xl text-sm font-black tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer hover:opacity-95"
       >
         <Flag className="w-4 h-4" />
         Kết thúc chuyến đi & Xem chia tiền
@@ -225,6 +224,7 @@ export default function SettlementPlan({
                   {formatVND(tx.amountVND)}
                 </span>
                 <button
+                  type="button"
                   onClick={() => setSelectedTxForQr(tx)}
                   style={{
                     backgroundColor: 'var(--badge-bg)',
