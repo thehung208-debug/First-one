@@ -44,7 +44,7 @@ export default function QrModal({ isOpen, onClose, transaction }) {
           <div className="flex items-center gap-2">
             <QrCode className="w-5 h-5 text-sky-600" />
             <h3 className="font-bold text-sm sm:text-base text-[#422d22]">
-              Mã VietQR chuyển khoản
+              Mã VietQR
             </h3>
           </div>
           <button

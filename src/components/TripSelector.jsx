@@ -112,11 +112,8 @@ export default function TripSelector({
           title={!activeTrip?.tripEnded ? 'Chuyến đi đang diễn ra' : 'Đang chia tiền'}
         />
 
-        <div className="flex flex-col text-left">
-          <span className="text-[9px] font-bold tracking-wider uppercase opacity-60 flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-            <Compass className="w-2.5 h-2.5" /> Chuyến đi
-          </span>
-          <span className="text-xs font-black max-w-[100px] sm:max-w-[140px] truncate leading-tight">
+        <div className="flex items-center text-left">
+          <span className="text-xs font-bold max-w-[120px] sm:max-w-[160px] truncate leading-tight">
             {activeTrip?.name || 'Chuyến đi'}
           </span>
         </div>
@@ -145,14 +142,9 @@ export default function TripSelector({
             >
               <div className="flex items-center gap-2">
                 <Compass className="w-5 h-5" style={{ color: 'var(--accent)' }} />
-                <div>
-                  <h3 className="font-black text-sm sm:text-base leading-tight">
-                    Danh sách chuyến đi
-                  </h3>
-                  <p className="text-[11px] opacity-75 font-semibold" style={{ color: 'var(--text-muted)' }}>
-                    Quản lý & chuyển đổi giữa các chuyến đi ({trips.length})
-                  </p>
-                </div>
+                <h3 className="font-bold text-sm sm:text-base leading-tight">
+                  Chuyến đi ({trips.length})
+                </h3>
               </div>
               <button
                 type="button"
@@ -252,17 +244,17 @@ export default function TripSelector({
                                     backgroundColor: 'var(--accent)',
                                     color: 'var(--accent-text)',
                                   }}
-                                  className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded-md"
+                                  className="text-[9px] font-bold uppercase px-1.5 py-0.2 rounded-md"
                                 >
-                                  Đang chọn
+                                  Hiện tại
                                 </span>
                               )}
                             </div>
 
                             <div className="text-[10px] sm:text-[11px] opacity-75 font-medium flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                              <span>{stats.memberCount} thành viên</span>
+                              <span>{stats.memberCount} người</span>
                               <span>·</span>
-                              <span>{stats.expenseCount} khoản chi</span>
+                              <span>{stats.expenseCount} khoản</span>
                               <span>·</span>
                               <span className="font-bold" style={{ color: 'var(--accent)' }}>
                                 {formatVND(stats.totalVND)}
@@ -273,11 +265,11 @@ export default function TripSelector({
                             <div className="mt-1 flex items-center gap-1.5">
                               {!trip.tripEnded ? (
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-500/15 px-2 py-0.5 rounded-md">
-                                  <Clock className="w-2.5 h-2.5" /> Đang diễn ra
+                                  <Clock className="w-2.5 h-2.5" /> Đang đi
                                 </span>
                               ) : (
                                 <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-800 bg-rose-500/15 px-2 py-0.5 rounded-md">
-                                  <Flag className="w-2.5 h-2.5" /> Đang chia tiền
+                                  <Flag className="w-2.5 h-2.5" /> Chia tiền
                                 </span>
                               )}
                             </div>
@@ -292,7 +284,7 @@ export default function TripSelector({
                         <button
                           type="button"
                           onClick={(e) => handleStartRename(trip, e)}
-                          title="Đổi tên chuyến đi"
+                          title="Sửa"
                           className="p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/5 transition-all cursor-pointer"
                         >
                           <Edit3 className="w-3.5 h-3.5" />
@@ -301,7 +293,7 @@ export default function TripSelector({
                           <button
                             type="button"
                             onClick={(e) => handleDelete(trip.id, trip.name, e)}
-                            title="Xóa chuyến đi này"
+                            title="Xóa"
                             className="p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
@@ -324,13 +316,10 @@ export default function TripSelector({
             >
               {isCreating ? (
                 <form onSubmit={handleConfirmCreate} className="space-y-2.5 animate-fade-in">
-                  <div className="text-xs font-bold" style={{ color: 'var(--text-muted)' }}>
-                    Tạo chuyến đi mới:
-                  </div>
                   <input
                     type="text"
                     required
-                    placeholder="Tên chuyến đi (vd: Đà Lạt 3N2Đ, Đi Thái Lan...)"
+                    placeholder="Tên chuyến mới..."
                     value={newTripName}
                     onChange={(e) => setNewTripName(e.target.value)}
                     autoFocus
@@ -350,7 +339,7 @@ export default function TripSelector({
                         onChange={(e) => setCopyMembers(e.target.checked)}
                         className="rounded accent-rose-600 cursor-pointer"
                       />
-                      <span>Giữ lại {activeTrip.members.length} thành viên từ chuyến này (bỏ chọn để bắt đầu lại từ đầu)</span>
+                      <span>Giữ lại {activeTrip.members.length} người từ chuyến này</span>
                     </label>
                   )}
 
@@ -363,7 +352,7 @@ export default function TripSelector({
                       }}
                       className="flex-1 py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5"
                     >
-                      <Plus className="w-3.5 h-3.5" /> Tạo & Chuyển sang chuyến này
+                      <Plus className="w-3.5 h-3.5" /> Tạo chuyến
                     </button>
                     <button
                       type="button"
@@ -385,7 +374,7 @@ export default function TripSelector({
                     }}
                     className="w-full py-2.5 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
-                    <Plus className="w-4 h-4" /> Tạo chuyến đi mới
+                    <Plus className="w-4 h-4" /> Tạo chuyến mới
                   </button>
 
                   {onOpenWelcomeGateway && (
@@ -398,7 +387,7 @@ export default function TripSelector({
                       style={{ color: 'var(--text-muted)' }}
                       className="w-full text-center text-xs font-semibold opacity-70 hover:opacity-100 hover:underline cursor-pointer transition-opacity"
                     >
-                      Mở màn hình chọn chuyến lúc mới vào
+                      Màn hình chào mừng
                     </button>
                   )}
                 </div>

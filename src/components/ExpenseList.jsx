@@ -87,7 +87,7 @@ export default function ExpenseList({
           {isExpanded ? (
             <><ChevronUp className="w-4 h-4" /> Thu gọn</>
           ) : (
-            <><ChevronDown className="w-4 h-4" /> Xem thêm {expenses.length - 3} khoản chi</>
+            <><ChevronDown className="w-4 h-4" /> Xem thêm ({expenses.length - 3})</>
           )}
         </button>
       )}

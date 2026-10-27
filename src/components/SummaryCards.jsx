@@ -28,7 +28,7 @@ export default function SummaryCards({ calculation }) {
       </div>
       <div className="flex-1">
         <div className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-          Tổng chi tiêu đoàn
+          Tổng chi
         </div>
         <div className="text-2xl sm:text-3xl font-black tracking-tight" style={{ color: 'var(--accent)' }}>
           {formatVND(totalSpendingVND)}

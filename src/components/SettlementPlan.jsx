@@ -31,7 +31,7 @@ export default function SettlementPlan({
   // Not ended yet — show the "End Trip" button
   if (!tripEnded) {
     return (
-      <div className="space-y-1.5 pt-1">
+      <div className="pt-1">
         <button
           type="button"
           onClick={onEndTrip}
@@ -39,14 +39,11 @@ export default function SettlementPlan({
             backgroundColor: 'var(--accent)',
             color: 'var(--accent-text)',
           }}
-          className="w-full py-3.5 rounded-2xl text-sm font-black tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer hover:opacity-95"
+          className="w-full py-3 rounded-2xl text-sm font-black tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer hover:opacity-95"
         >
           <Flag className="w-4 h-4" />
-          Kết thúc chuyến đi & Tính tiền
+          Kết thúc & Tính tiền
         </button>
-        <p className="text-[11px] text-center opacity-70 font-medium" style={{ color: 'var(--text-muted)' }}>
-          Chốt sổ để xem chia tiền (bạn luôn có thể quay lại đi tiếp nếu cần nạp thêm tiền)
-        </p>
       </div>
     )
   }
@@ -61,16 +58,16 @@ export default function SettlementPlan({
           borderColor: 'var(--card-border)',
           color: 'var(--text-main)',
         }}
-        className="rounded-2xl p-5 text-center text-xs border-2 shadow-sm space-y-3 animate-fade-in"
+        className="rounded-2xl p-4 text-center text-xs border-2 shadow-sm space-y-2.5 animate-fade-in"
       >
-        <div className="flex items-center justify-center gap-1.5 font-extrabold text-xs text-rose-800">
-          <Flag className="w-4 h-4" />
-          <span>Đã kết thúc chuyến đi (Tạm chốt sổ)</span>
+        <div className="flex items-center justify-center gap-1.5 font-bold text-xs text-rose-800">
+          <Flag className="w-3.5 h-3.5" />
+          <span>Đã kết thúc</span>
         </div>
-        <p className="font-semibold" style={{ color: 'var(--text-muted)' }}>
-          Tất cả thành viên đã cân bằng chi tiêu (hoặc chưa có khoản chi nào).
+        <p style={{ color: 'var(--text-muted)' }}>
+          Đã cân bằng chi tiêu.
         </p>
-        <div className="flex flex-col sm:flex-row gap-2 justify-center pt-1">
+        <div className="flex gap-2 justify-center pt-1">
           <button
             type="button"
             onClick={onTriggerAddExpense}
@@ -78,9 +75,9 @@ export default function SettlementPlan({
               backgroundColor: 'var(--accent)',
               color: 'var(--accent-text)',
             }}
-            className="px-4 py-2 rounded-xl font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+            className="px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
           >
-            <PlusCircle className="w-3.5 h-3.5" /> Nạp thêm chi tiêu (Đi tiếp)
+            <PlusCircle className="w-3.5 h-3.5" /> Thêm chi tiêu
           </button>
           <button
             type="button"
@@ -90,9 +87,9 @@ export default function SettlementPlan({
               borderColor: 'var(--input-border)',
               color: 'var(--text-main)',
             }}
-            className="px-4 py-2 rounded-xl font-bold border hover:border-rose-600 flex items-center justify-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 rounded-xl font-bold border hover:border-rose-600 flex items-center justify-center gap-1.5 cursor-pointer"
           >
-            <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
+            <RotateCcw className="w-3.5 h-3.5" /> Tiếp tục đi
           </button>
         </div>
       </div>
@@ -109,30 +106,17 @@ export default function SettlementPlan({
       }}
       className="rounded-2xl p-4 space-y-3.5 border-2 shadow-sm animate-fade-in transition-all duration-300"
     >
-      {/* Top Banner: Đã kết thúc chuyến đi & Nút quay lại đi tiếp ngay */}
+      {/* Top Banner: Đã kết thúc & Nút đi tiếp */}
       <div
         style={{
           backgroundColor: 'var(--badge-bg)',
           borderColor: 'var(--card-border)',
         }}
-        className="p-3 rounded-2xl border flex flex-col sm:flex-row items-center justify-between gap-2.5"
+        className="px-3.5 py-2 rounded-xl border flex items-center justify-between gap-2"
       >
-        <div className="flex items-center gap-2.5 text-xs">
-          <div
-            className="w-7 h-7 rounded-xl flex items-center justify-center shrink-0 shadow-2xs font-bold"
-            style={{
-              backgroundColor: 'var(--accent)',
-              color: 'var(--accent-text)',
-            }}
-          >
-            <Flag className="w-3.5 h-3.5" />
-          </div>
-          <div>
-            <span className="font-extrabold block text-xs sm:text-sm">Đã kết thúc chuyến đi & tính tiền</span>
-            <span className="text-[11px] opacity-75 font-medium" style={{ color: 'var(--text-muted)' }}>
-              Nếu ấn nhầm hoặc cần nạp thêm tiền, hãy quay lại đi tiếp bất cứ lúc nào.
-            </span>
-          </div>
+        <div className="flex items-center gap-2 text-xs font-bold" style={{ color: 'var(--accent)' }}>
+          <Flag className="w-3.5 h-3.5" />
+          <span>Đã kết thúc</span>
         </div>
 
         <button
@@ -143,18 +127,18 @@ export default function SettlementPlan({
             borderColor: 'var(--accent)',
             color: 'var(--accent)',
           }}
-          className="w-full sm:w-auto px-3.5 py-2 rounded-xl text-xs font-black border-2 shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+          className="px-3 py-1 rounded-lg text-xs font-bold border shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center gap-1 shrink-0"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
+          <RotateCcw className="w-3 h-3" /> Tiếp tục đi
         </button>
       </div>
 
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5">
           <SendHorizontal className="w-4 h-4" style={{ color: 'var(--accent)' }} />
           <span className="font-bold text-xs uppercase tracking-wider">
-            Gợi ý chuyển tiền ({transactions.length} giao dịch)
+            Chuyển tiền ({transactions.length})
           </span>
         </div>
         {transactions.length > 1 && (
@@ -174,10 +158,10 @@ export default function SettlementPlan({
 
       {/* Recalculated Notification Banner */}
       {recentlyRecalculated && (
-        <div className="px-3.5 py-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-900 text-xs font-bold flex items-center justify-between gap-2 animate-fade-in shadow-xs">
-          <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-rose-600 shrink-0" />
-            <span>Đã tự động tính toán lại số tiền cần chuyển theo khoản chi mới!</span>
+        <div className="px-3 py-2 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-900 text-xs font-bold flex items-center justify-between gap-2 animate-fade-in shadow-xs">
+          <div className="flex items-center gap-1.5">
+            <Sparkles className="w-3.5 h-3.5 text-rose-600 shrink-0" />
+            <span>Đã cập nhật số tiền</span>
           </div>
           {onDismissRecalculated && (
             <button
@@ -191,37 +175,10 @@ export default function SettlementPlan({
         </div>
       )}
 
-      {/* Quick Add Missing Expense Prompt Card */}
-      <div
-        style={{
-          backgroundColor: 'var(--input-bg)',
-          borderColor: 'var(--input-border)',
-        }}
-        className="p-3 rounded-xl border flex items-center justify-between gap-2 shadow-2xs"
-      >
-        <div className="min-w-0 pr-1">
-          <span className="font-extrabold text-xs block truncate">Cần nạp thêm tiền / khoản chi mới?</span>
-          <span className="text-[11px] opacity-75 truncate block" style={{ color: 'var(--text-muted)' }}>
-            Hệ thống sẽ chuyển về chuyến đi tiếp diễn để bạn thêm chi tiêu
-          </span>
-        </div>
-        <button
-          type="button"
-          onClick={onTriggerAddExpense}
-          style={{
-            backgroundColor: 'var(--accent)',
-            color: 'var(--accent-text)',
-          }}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
-        >
-          <PlusCircle className="w-3.5 h-3.5" /> Nạp thêm tiền (Đi tiếp)
-        </button>
-      </div>
-
       {isAllCompleted && (
-        <div className="px-3.5 py-2.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 text-xs font-bold flex items-center gap-2 animate-fade-in">
+        <div className="px-3 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-800 text-xs font-bold flex items-center gap-1.5 animate-fade-in">
           <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
-          Tất cả đã thanh toán xong! Sòng phẳng trọn vẹn.
+          Đã thanh toán xong!
         </div>
       )}
 
@@ -306,7 +263,7 @@ export default function SettlementPlan({
           }}
           className="w-full py-2.5 px-3 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all cursor-pointer flex items-center justify-center gap-2"
         >
-          <PlusCircle className="w-4 h-4" /> Nạp thêm chi tiêu (Đi tiếp)
+          <PlusCircle className="w-4 h-4" /> Thêm chi tiêu
         </button>
         <button
           type="button"
@@ -318,7 +275,7 @@ export default function SettlementPlan({
           }}
           className="w-full py-2.5 px-3 rounded-xl text-xs font-bold border hover:border-rose-600 transition-all cursor-pointer flex items-center justify-center gap-1.5"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
+          <RotateCcw className="w-3.5 h-3.5" /> Tiếp tục đi
         </button>
       </div>
 

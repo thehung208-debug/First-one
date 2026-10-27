@@ -69,7 +69,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
                 type="button"
                 onClick={() => { setEditingId(m.id); setEditName(m.name) }}
                 className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-stone-700"
-                title="Sửa tên"
+                title="Sửa"
               >
                 <Edit2 className="w-3 h-3" />
               </button>
@@ -77,7 +77,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
                 type="button"
                 onClick={() => onRemoveMember(m.id)}
                 className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-rose-600"
-                title="Xóa thành viên"
+                title="Xóa"
               >
                 <Trash2 className="w-3 h-3" />
               </button>
@@ -90,7 +90,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
       <form onSubmit={handleAdd} className="inline-flex items-center gap-1.5">
         <input
           type="text"
-          placeholder={members.length === 0 ? "Thêm tên người..." : "Tên mới..."}
+          placeholder="Tên..."
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           style={{

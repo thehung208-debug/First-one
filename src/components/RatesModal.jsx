@@ -33,9 +33,9 @@ export default function RatesModal({
         {/* Header */}
         <div className="px-6 py-4 border-b border-[#eee3d7] flex items-center justify-between bg-[#fbf8f4]">
           <div>
-            <h3 className="text-lg font-bold text-[#422d22]">Bảng tỷ giá quy đổi sang VNĐ</h3>
+            <h3 className="text-lg font-bold text-[#422d22]">Tỷ giá VNĐ</h3>
             <p className="text-xs text-[#7e6757]">
-              Nguồn: {ratesSource || 'Trực tuyến'}. Bạn có thể tự chỉnh tỷ giá thực tế nếu muốn.
+              Nguồn: {ratesSource || 'Trực tuyến'}
             </p>
           </div>
           <button

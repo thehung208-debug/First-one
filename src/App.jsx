@@ -311,9 +311,6 @@ export default function App() {
                 >
                   Forrest <span>Gump</span>
                 </h1>
-                <p className="text-[10px] sm:text-[11px] font-semibold opacity-75 truncate" style={{ color: 'var(--text-muted)' }}>
-                  Sổ tay chia tiền du lịch
-                </p>
               </div>
             </div>
 
@@ -363,7 +360,7 @@ export default function App() {
                     style={{ color: 'var(--accent)' }}
                     className="text-xs font-black uppercase tracking-wider"
                   >
-                    Lịch sử chi tiêu ({expenses.length})
+                    Chi tiêu ({expenses.length})
                   </span>
                   <ExpenseList
                     expenses={expenses}
@@ -486,7 +483,7 @@ export default function App() {
                     style={{ color: 'var(--accent)' }}
                     className="text-xs font-black uppercase tracking-wider"
                   >
-                    Lịch sử chi tiêu ({expenses.length})
+                    Chi tiêu ({expenses.length})
                   </span>
                   <ExpenseList
                     expenses={expenses}
