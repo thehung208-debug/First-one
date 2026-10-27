@@ -1,13 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-heading: 'Coiny', cursive, sans-serif;
-  --font-body: 'Ruge Boogie', cursive, sans-serif;
+  --font-sans: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 :root {
-  --font-heading: 'Coiny', cursive, sans-serif;
-  --font-body: 'Ruge Boogie', cursive, sans-serif;
+  --app-font: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
   /* Giao diện Đỏ Sang Trọng & Rực Rỡ (Ruby Red Theme) */
   --app-bg: #fff5f5;          /* Nền đỏ kem / hồng phấn rất nhẹ dịu mắt */
@@ -26,9 +24,16 @@
   --header-border: #fecdd3;   /* Viền header */
 }
 
-/* Áp dụng font Ruge Boogie cho tất cả các chữ thông thường */
+/* Áp dụng đồng bộ font Commissioner cho toàn bộ ứng dụng */
+*,
 #root,
 body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
 p,
 span,
 div,
@@ -41,38 +46,16 @@ textarea,
 li,
 td,
 th {
-  font-family: var(--font-body) !important;
+  font-family: 'Commissioner', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 #root,
 body {
   background-color: var(--app-bg);
   color: var(--text-main);
-  letter-spacing: 0.03em;
-  font-size: 17px;
+  letter-spacing: -0.01em;
+  font-size: 15px;
   line-height: 1.5;
-}
-
-/* Áp dụng font Coiny cho tất cả các tiêu đề */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-.font-heading,
-.font-title,
-header h1,
-header h1 span,
-[data-font="heading"],
-.tracking-wider,
-.uppercase.tracking-wider,
-.text-xs.font-black.uppercase,
-.text-\[11px\].font-black.uppercase,
-.text-2xl.font-black,
-.text-3xl.font-black {
-  font-family: var(--font-heading) !important;
-  letter-spacing: 0.03em;
 }
 
 /* Custom subtle scrollbar */
