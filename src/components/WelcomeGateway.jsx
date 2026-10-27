@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import {
-  Compass,
   Plus,
   ArrowRight,
   Clock,
   Flag,
   Users,
+  Receipt,
   ChevronDown,
   ChevronUp,
-  Sparkles,
-  PlaneTakeoff,
   Luggage,
   X
 } from 'lucide-react'
@@ -23,7 +21,6 @@ export default function WelcomeGateway({
   onCreateNewTrip,
   onDismiss
 }) {
-  const [isCreating, setIsCreating] = useState(false)
   const [newTripName, setNewTripName] = useState('')
   const [copyMembers, setCopyMembers] = useState(false)
   const [showOtherTrips, setShowOtherTrips] = useState(false)
@@ -40,18 +37,11 @@ export default function WelcomeGateway({
     return { totalVND, expenseCount, memberCount }
   }
 
-  const handleStartCreate = () => {
-    setIsCreating(true)
-    setNewTripName(`Chuyến đi ${trips.length + 1}`)
-    setCopyMembers(false)
-  }
-
   const handleConfirmCreate = (e) => {
     e.preventDefault()
-    if (!newTripName.trim()) return
-
+    const name = newTripName.trim() || `Chuyến đi ${trips.length + 1}`
     onCreateNewTrip({
-      name: newTripName.trim(),
+      name,
       copyMembersFromActive: copyMembers
     })
   }
@@ -60,243 +50,177 @@ export default function WelcomeGateway({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 overflow-y-auto bg-black/50 backdrop-blur-sm animate-fade-in">
-      {/* Background container */}
       <div
         style={{
           backgroundColor: 'var(--card-bg)',
           borderColor: 'var(--card-border)',
           color: 'var(--text-main)',
         }}
-        className="relative w-full max-w-lg rounded-3xl border-2 shadow-2xl p-5 sm:p-7 space-y-6 my-auto max-h-[92vh] overflow-y-auto"
+        className="relative w-full max-w-sm rounded-3xl border-2 shadow-2xl p-5 space-y-4 my-auto max-h-[92vh] overflow-y-auto"
       >
-        {/* Quick Close Button in corner */}
+        {/* Close Button */}
         <button
           type="button"
           onClick={onDismiss}
           style={{ color: 'var(--text-muted)' }}
           className="absolute top-4 right-4 p-1.5 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
-          title="Bỏ qua"
         >
-          <X className="w-5 h-5" />
+          <X className="w-4 h-4" />
         </button>
 
         {/* Brand Header */}
-        <div className="text-center space-y-2 pt-1">
-          <div className="inline-block relative">
-            <img
-              src="/forrest.png"
-              alt="Forrest Gump"
-              style={{ borderColor: 'var(--accent)' }}
-              className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover shadow-md border-2 rotate-[-2deg] mx-auto"
-            />
-          </div>
-          <div>
-            <h2
-              style={{ color: 'var(--accent)' }}
-              className="text-2xl sm:text-3xl font-black tracking-tight"
-            >
-              Forrest Gump
-            </h2>
-            <p className="text-xs sm:text-sm font-bold pt-1" style={{ color: 'var(--text-muted)' }}>
-              Tiếp tục hoặc tạo chuyến mới
-            </p>
-          </div>
+        <div className="text-center space-y-1.5 pt-1">
+          <img
+            src="/forrest.png"
+            alt="Forrest Gump"
+            style={{ borderColor: 'var(--accent)' }}
+            className="w-14 h-14 rounded-2xl object-cover shadow-md border-2 rotate-[-2deg] mx-auto"
+          />
+          <h2
+            style={{ color: 'var(--accent)' }}
+            className="text-xl sm:text-2xl font-black tracking-tight"
+          >
+            Forrest Gump
+          </h2>
         </div>
 
-        {/* Action Options */}
-        <div className="space-y-3.5">
-          {/* OPTION 1: Continue Active Trip */}
-          {activeTrip && (
-            <div
-              style={{
-                backgroundColor: 'var(--badge-bg)',
-                borderColor: 'var(--card-border)',
-              }}
-              className="p-4 rounded-2xl border-2 space-y-3 shadow-2xs hover:shadow-xs transition-all"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-black uppercase tracking-wider flex items-center gap-1.5" style={{ color: 'var(--accent)' }}>
-                  <Luggage className="w-3.5 h-3.5" /> Chuyến gần nhất
-                </span>
-                {!activeTrip.tripEnded ? (
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-800 bg-emerald-500/20 px-2 py-0.5 rounded-full">
-                    <Clock className="w-2.5 h-2.5" /> Đang đi
-                  </span>
-                ) : (
-                  <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-900 bg-rose-500/20 px-2 py-0.5 rounded-full">
-                    <Flag className="w-2.5 h-2.5" /> Chia tiền
-                  </span>
-                )}
-              </div>
-
-              <div className="flex items-start justify-between gap-2">
-                <div className="min-w-0">
-                  <h3 className="text-base sm:text-lg font-black truncate">
-                    {activeTrip.name}
-                  </h3>
-                  <p className="text-xs opacity-75 font-medium flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                    <span>{activeStats.memberCount} người</span>
-                    <span>·</span>
-                    <span>{activeStats.expenseCount} khoản</span>
-                    <span>·</span>
-                    <span className="font-extrabold" style={{ color: 'var(--accent)' }}>
-                      {formatVND(activeStats.totalVND)}
-                    </span>
-                  </p>
-                </div>
-              </div>
-
-              <button
-                type="button"
-                onClick={() => onContinueTrip(activeTrip.id)}
-                style={{
-                  backgroundColor: 'var(--accent)',
-                  color: 'var(--accent-text)',
-                }}
-                className="w-full py-2.5 rounded-xl text-xs sm:text-sm font-black shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
-              >
-                Tiếp tục <ArrowRight className="w-4 h-4" />
-              </button>
-
-              {/* Other trips dropdown if exists */}
-              {otherTrips.length > 0 && (
-                <div className="pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setShowOtherTrips(!showOtherTrips)}
-                    className="text-xs font-bold opacity-75 hover:opacity-100 flex items-center justify-between w-full cursor-pointer transition-opacity"
-                    style={{ color: 'var(--text-muted)' }}
-                  >
-                    <span>Chuyến khác ({otherTrips.length})</span>
-                    {showOtherTrips ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                  </button>
-
-                  {showOtherTrips && (
-                    <div className="space-y-1.5 pt-2 max-h-36 overflow-y-auto animate-fade-in">
-                      {otherTrips.map(trip => {
-                        const s = getTripStats(trip)
-                        return (
-                          <div
-                            key={trip.id}
-                            onClick={() => onContinueTrip(trip.id)}
-                            style={{
-                              backgroundColor: 'var(--card-bg)',
-                              borderColor: 'var(--input-border)',
-                            }}
-                            className="p-2.5 rounded-xl border flex items-center justify-between text-xs cursor-pointer hover:border-rose-600 transition-all"
-                          >
-                            <div className="min-w-0 pr-2">
-                              <span className="font-bold block truncate">{trip.name}</span>
-                              <span className="text-[10px] opacity-70" style={{ color: 'var(--text-muted)' }}>
-                                {s.memberCount} người · {formatVND(s.totalVND)}
-                              </span>
-                            </div>
-                            <span className="text-[10px] font-bold text-sky-700 shrink-0">
-                              Chọn →
-                            </span>
-                          </div>
-                        )
-                      })}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          )}
-
-          {/* OPTION 2: Create New Trip */}
+        {/* Active Trip Card */}
+        {activeTrip && (
           <div
             style={{
-              backgroundColor: 'var(--input-bg)',
-              borderColor: 'var(--input-border)',
+              backgroundColor: 'var(--badge-bg)',
+              borderColor: 'var(--card-border)',
             }}
-            className="p-4 rounded-2xl border-2 space-y-3 shadow-2xs"
+            className="p-3.5 rounded-2xl border-2 space-y-2.5 shadow-2xs"
           >
-            <div className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-wider" style={{ color: 'var(--accent)' }}>
-              <PlaneTakeoff className="w-3.5 h-3.5" /> Chuyến đi mới
+            <div className="flex items-center justify-between gap-2">
+              <div className="flex items-center gap-1.5 min-w-0">
+                <Luggage className="w-4 h-4 shrink-0" style={{ color: 'var(--accent)' }} />
+                <h3 className="font-bold text-sm truncate">
+                  {activeTrip.name}
+                </h3>
+              </div>
+              {!activeTrip.tripEnded ? (
+                <span className="p-1 rounded-md text-emerald-700 bg-emerald-500/15" title="Đang diễn ra">
+                  <Clock className="w-3 h-3" />
+                </span>
+              ) : (
+                <span className="p-1 rounded-md text-rose-700 bg-rose-500/15" title="Đang chia tiền">
+                  <Flag className="w-3 h-3" />
+                </span>
+              )}
             </div>
 
-            {!isCreating ? (
-              <div className="flex items-center justify-between gap-3">
-                <span className="text-xs opacity-75 font-medium" style={{ color: 'var(--text-muted)' }}>
-                  Bắt đầu chuyến đi mới
-                </span>
+            {/* Stats with icons */}
+            <div className="flex items-center gap-3 text-xs opacity-80" style={{ color: 'var(--text-muted)' }}>
+              <span className="flex items-center gap-1">
+                <Users className="w-3.5 h-3.5" /> {activeStats.memberCount}
+              </span>
+              <span>·</span>
+              <span className="flex items-center gap-1">
+                <Receipt className="w-3.5 h-3.5" /> {activeStats.expenseCount}
+              </span>
+              <span>·</span>
+              <span className="font-bold" style={{ color: 'var(--accent)' }}>
+                {formatVND(activeStats.totalVND)}
+              </span>
+            </div>
+
+            {/* Continue Button */}
+            <button
+              type="button"
+              onClick={() => onContinueTrip(activeTrip.id)}
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--accent-text)',
+              }}
+              className="w-full py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+            >
+              <ArrowRight className="w-4 h-4" />
+            </button>
+
+            {/* Other trips dropdown if exists */}
+            {otherTrips.length > 0 && (
+              <div className="pt-0.5">
                 <button
                   type="button"
-                  onClick={handleStartCreate}
-                  style={{
-                    backgroundColor: 'var(--accent)',
-                    color: 'var(--accent-text)',
-                  }}
-                  className="px-3.5 py-2 rounded-xl text-xs sm:text-sm font-bold shadow-xs hover:opacity-95 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+                  onClick={() => setShowOtherTrips(!showOtherTrips)}
+                  className="text-xs font-bold opacity-70 hover:opacity-100 flex items-center justify-between w-full cursor-pointer"
+                  style={{ color: 'var(--text-muted)' }}
                 >
-                  <Plus className="w-4 h-4" /> Tạo mới
+                  <span>({otherTrips.length})</span>
+                  {showOtherTrips ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
                 </button>
-              </div>
-            ) : (
-              <form onSubmit={handleConfirmCreate} className="space-y-3 animate-fade-in pt-1">
-                <input
-                  type="text"
-                  required
-                  placeholder="Tên chuyến mới..."
-                  value={newTripName}
-                  onChange={(e) => setNewTripName(e.target.value)}
-                  autoFocus
-                  style={{
-                    backgroundColor: 'var(--card-bg)',
-                    borderColor: 'var(--accent)',
-                    color: 'var(--text-main)',
-                  }}
-                  className="w-full px-3.5 py-2.5 text-xs sm:text-sm font-bold rounded-xl border-2 focus:outline-none"
-                />
 
-                {activeTrip?.members?.length > 0 && (
-                  <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer select-none opacity-85">
-                    <input
-                      type="checkbox"
-                      checked={copyMembers}
-                      onChange={(e) => setCopyMembers(e.target.checked)}
-                      className="rounded accent-rose-600 cursor-pointer"
-                    />
-                    <span>Giữ lại {activeTrip.members.length} người</span>
-                  </label>
+                {showOtherTrips && (
+                  <div className="space-y-1 pt-1.5 max-h-32 overflow-y-auto animate-fade-in">
+                    {otherTrips.map(trip => {
+                      const s = getTripStats(trip)
+                      return (
+                        <div
+                          key={trip.id}
+                          onClick={() => onContinueTrip(trip.id)}
+                          style={{
+                            backgroundColor: 'var(--card-bg)',
+                            borderColor: 'var(--input-border)',
+                          }}
+                          className="p-2 rounded-xl border flex items-center justify-between text-xs cursor-pointer hover:border-rose-600 transition-all"
+                        >
+                          <span className="font-bold truncate pr-2">{trip.name}</span>
+                          <span className="text-[11px] font-bold text-sky-700 shrink-0">
+                            {formatVND(s.totalVND)} →
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
                 )}
-
-                <div className="flex gap-2">
-                  <button
-                    type="submit"
-                    style={{
-                      backgroundColor: 'var(--accent)',
-                      color: 'var(--accent-text)',
-                    }}
-                    className="flex-1 py-2.5 rounded-xl text-xs sm:text-sm font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5"
-                  >
-                    <Plus className="w-4 h-4" /> Bắt đầu
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setIsCreating(false)}
-                    className="px-3.5 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 cursor-pointer"
-                  >
-                    Hủy
-                  </button>
-                </div>
-              </form>
+              </div>
             )}
           </div>
-        </div>
+        )}
 
-        {/* Footer skip */}
-        <div className="text-center pt-1">
-          <button
-            type="button"
-            onClick={onDismiss}
-            style={{ color: 'var(--text-muted)' }}
-            className="text-xs font-semibold hover:underline opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
-          >
-            Vào ứng dụng →
-          </button>
-        </div>
+        {/* Create New Trip Compact Form */}
+        <form onSubmit={handleConfirmCreate} className="space-y-2">
+          <div className="flex gap-1.5">
+            <input
+              type="text"
+              placeholder="Tên chuyến mới..."
+              value={newTripName}
+              onChange={(e) => setNewTripName(e.target.value)}
+              style={{
+                backgroundColor: 'var(--input-bg)',
+                borderColor: 'var(--input-border)',
+                color: 'var(--text-main)',
+              }}
+              className="flex-1 px-3 py-2 text-xs font-bold rounded-xl border-2 focus:outline-none"
+            />
+            <button
+              type="submit"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--accent-text)',
+              }}
+              className="px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center shrink-0"
+              title="Tạo chuyến mới"
+            >
+              <Plus className="w-4 h-4 stroke-[3]" />
+            </button>
+          </div>
+
+          {activeTrip?.members?.length > 0 && (
+            <label className="flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer select-none opacity-80">
+              <input
+                type="checkbox"
+                checked={copyMembers}
+                onChange={(e) => setCopyMembers(e.target.checked)}
+                className="rounded accent-rose-600 cursor-pointer"
+              />
+              <Users className="w-3 h-3" />
+              <span>{activeTrip.members.length}</span>
+            </label>
+          )}
+        </form>
       </div>
     </div>
   )

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { PlusCircle, Check, User, Users, Sparkles, CheckCheck } from 'lucide-react'
+import { Plus, Check, User, Users, Sparkles, CheckCheck } from 'lucide-react'
 import { SUPPORTED_CURRENCIES, convertToVND, formatVND } from '../utils/currency'
 
 function formatInputDisplay(value) {
@@ -264,9 +264,8 @@ export default function ExpenseForm({
             borderColor: 'var(--card-border)',
             color: 'var(--badge-text)',
           }}
-          className="px-3.5 py-2 rounded-xl text-xs font-bold border flex items-center justify-between animate-fade-in"
+          className="px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center justify-end animate-fade-in"
         >
-          <span>Quy đổi:</span>
           <span className="text-sm font-black tracking-tight">≈ {formatVND(convertedVND)}</span>
         </div>
       )}
@@ -276,7 +275,7 @@ export default function ExpenseForm({
         {/* Payer */}
         <div className="space-y-1.5">
           <label className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-            <User className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} /> Người trả
+            <User className="w-4 h-4" style={{ color: 'var(--accent)' }} />
           </label>
           <div
             style={{
@@ -316,7 +315,8 @@ export default function ExpenseForm({
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
             <label className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-              <Users className="w-3.5 h-3.5" style={{ color: 'var(--accent)' }} /> Chia cho ({participantIds.length}/{members.length})
+              <Users className="w-4 h-4" style={{ color: 'var(--accent)' }} />
+              <span className="text-[11px] opacity-75">({participantIds.length}/{members.length})</span>
             </label>
             <button
               type="button"
@@ -327,12 +327,9 @@ export default function ExpenseForm({
                 borderColor: 'var(--card-border)',
               }}
               className="text-[11px] font-bold hover:underline cursor-pointer px-1.5 py-0.5 rounded-md border flex items-center gap-1"
+              title={isAllSelected ? 'Bỏ chọn' : 'Chọn hết'}
             >
-              {isAllSelected ? (
-                <><CheckCheck className="w-3 h-3" /> Tất cả</>
-              ) : (
-                'Chọn hết'
-              )}
+              <CheckCheck className="w-3.5 h-3.5" />
             </button>
           </div>
           <div
@@ -354,7 +351,7 @@ export default function ExpenseForm({
               className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-extrabold border transition-all cursor-pointer ${
                 isAllSelected ? 'shadow-2xs' : 'opacity-75 hover:opacity-100 hover:border-rose-600'
               }`}
-              title={isAllSelected ? 'Bấm để bỏ chọn bớt' : 'Bấm để chọn tất cả thành viên'}
+              title={isAllSelected ? 'Bỏ chọn' : 'Chọn hết'}
             >
               <Users className="w-3 h-3" />
               <span>All</span>
@@ -395,9 +392,9 @@ export default function ExpenseForm({
         className="w-full py-2.5 rounded-xl text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-95"
       >
         {editingExpense ? (
-          <><Check className="w-4 h-4" /> Lưu</>
+          <Check className="w-5 h-5 stroke-[2.5]" />
         ) : (
-          <><PlusCircle className="w-4 h-4" /> Thêm chi tiêu</>
+          <Plus className="w-5 h-5 stroke-[2.5]" />
         )}
       </button>
     </form>

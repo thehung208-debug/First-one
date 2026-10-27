@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flag, ArrowRight, CheckCircle2, Circle, QrCode, Sparkles, SendHorizontal, PlusCircle, RotateCcw } from 'lucide-react'
+import { Flag, ArrowRight, CheckCircle2, Circle, QrCode, Sparkles, SendHorizontal, Plus, PlusCircle, RotateCcw } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { formatVND } from '../utils/currency'
 import QrModal from './QrModal'
@@ -42,7 +42,7 @@ export default function SettlementPlan({
           className="w-full py-3 rounded-2xl text-sm font-black tracking-wide shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer hover:opacity-95"
         >
           <Flag className="w-4 h-4" />
-          Kết thúc & Tính tiền
+          Tính tiền
         </button>
       </div>
     )
@@ -61,11 +61,10 @@ export default function SettlementPlan({
         className="rounded-2xl p-4 text-center text-xs border-2 shadow-sm space-y-2.5 animate-fade-in"
       >
         <div className="flex items-center justify-center gap-1.5 font-bold text-xs text-rose-800">
-          <Flag className="w-3.5 h-3.5" />
-          <span>Đã kết thúc</span>
+          <Flag className="w-4 h-4" />
         </div>
         <p style={{ color: 'var(--text-muted)' }}>
-          Đã cân bằng chi tiêu.
+          Đã cân bằng
         </p>
         <div className="flex gap-2 justify-center pt-1">
           <button
@@ -75,9 +74,10 @@ export default function SettlementPlan({
               backgroundColor: 'var(--accent)',
               color: 'var(--accent-text)',
             }}
-            className="px-3 py-1.5 rounded-xl font-bold flex items-center justify-center gap-1.5 cursor-pointer shadow-xs"
+            className="p-2 rounded-xl font-bold flex items-center justify-center cursor-pointer shadow-xs"
+            title="Thêm chi tiêu"
           >
-            <PlusCircle className="w-3.5 h-3.5" /> Thêm chi tiêu
+            <Plus className="w-4 h-4" />
           </button>
           <button
             type="button"
@@ -87,9 +87,10 @@ export default function SettlementPlan({
               borderColor: 'var(--input-border)',
               color: 'var(--text-main)',
             }}
-            className="px-3 py-1.5 rounded-xl font-bold border hover:border-rose-600 flex items-center justify-center gap-1.5 cursor-pointer"
+            className="p-2 rounded-xl font-bold border hover:border-rose-600 flex items-center justify-center cursor-pointer"
+            title="Tiếp tục đi"
           >
-            <RotateCcw className="w-3.5 h-3.5" /> Tiếp tục đi
+            <RotateCcw className="w-4 h-4" />
           </button>
         </div>
       </div>
@@ -104,19 +105,18 @@ export default function SettlementPlan({
         borderColor: 'var(--card-border)',
         color: 'var(--text-main)',
       }}
-      className="rounded-2xl p-4 space-y-3.5 border-2 shadow-sm animate-fade-in transition-all duration-300"
+      className="rounded-2xl p-4 space-y-3 border-2 shadow-sm animate-fade-in transition-all duration-300"
     >
-      {/* Top Banner: Đã kết thúc & Nút đi tiếp */}
+      {/* Top Banner */}
       <div
         style={{
           backgroundColor: 'var(--badge-bg)',
           borderColor: 'var(--card-border)',
         }}
-        className="px-3.5 py-2 rounded-xl border flex items-center justify-between gap-2"
+        className="px-3 py-1.5 rounded-xl border flex items-center justify-between gap-2"
       >
-        <div className="flex items-center gap-2 text-xs font-bold" style={{ color: 'var(--accent)' }}>
+        <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: 'var(--accent)' }}>
           <Flag className="w-3.5 h-3.5" />
-          <span>Đã kết thúc</span>
         </div>
 
         <button
@@ -127,9 +127,10 @@ export default function SettlementPlan({
             borderColor: 'var(--accent)',
             color: 'var(--accent)',
           }}
-          className="px-3 py-1 rounded-lg text-xs font-bold border shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center gap-1 shrink-0"
+          className="p-1 rounded-lg text-xs font-bold border shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center gap-1 shrink-0"
+          title="Tiếp tục đi"
         >
-          <RotateCcw className="w-3 h-3" /> Tiếp tục đi
+          <RotateCcw className="w-3.5 h-3.5" />
         </button>
       </div>
 
@@ -138,7 +139,7 @@ export default function SettlementPlan({
         <div className="flex items-center gap-1.5">
           <SendHorizontal className="w-4 h-4" style={{ color: 'var(--accent)' }} />
           <span className="font-bold text-xs uppercase tracking-wider">
-            Chuyển tiền ({transactions.length})
+            ({transactions.length})
           </span>
         </div>
         {transactions.length > 1 && (
@@ -253,7 +254,7 @@ export default function SettlementPlan({
       </div>
 
       {/* Action buttons at bottom */}
-      <div className="pt-2 flex flex-col sm:flex-row items-center gap-2">
+      <div className="pt-2 flex items-center gap-2">
         <button
           type="button"
           onClick={onTriggerAddExpense}
@@ -261,9 +262,10 @@ export default function SettlementPlan({
             backgroundColor: 'var(--accent)',
             color: 'var(--accent-text)',
           }}
-          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all cursor-pointer flex items-center justify-center gap-2"
+          className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all cursor-pointer flex items-center justify-center"
+          title="Thêm chi tiêu"
         >
-          <PlusCircle className="w-4 h-4" /> Thêm chi tiêu
+          <Plus className="w-5 h-5 stroke-[2.5]" />
         </button>
         <button
           type="button"
@@ -273,9 +275,10 @@ export default function SettlementPlan({
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold border hover:border-rose-600 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+          className="p-2.5 rounded-xl text-xs font-bold border hover:border-rose-600 transition-all cursor-pointer flex items-center justify-center shrink-0"
+          title="Tiếp tục đi"
         >
-          <RotateCcw className="w-3.5 h-3.5" /> Tiếp tục đi
+          <RotateCcw className="w-4 h-4" />
         </button>
       </div>
 

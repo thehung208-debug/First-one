@@ -8,6 +8,7 @@ import {
   Check,
   X,
   Users,
+  Receipt,
   CheckCircle2,
   Clock,
   Flag,
@@ -252,25 +253,18 @@ export default function TripSelector({
                             </div>
 
                             <div className="text-[10px] sm:text-[11px] opacity-75 font-medium flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                              <span>{stats.memberCount} người</span>
+                              <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {stats.memberCount}</span>
                               <span>·</span>
-                              <span>{stats.expenseCount} khoản</span>
+                              <span className="flex items-center gap-1"><Receipt className="w-3 h-3" /> {stats.expenseCount}</span>
                               <span>·</span>
                               <span className="font-bold" style={{ color: 'var(--accent)' }}>
                                 {formatVND(stats.totalVND)}
                               </span>
-                            </div>
-
-                            {/* Status tag */}
-                            <div className="mt-1 flex items-center gap-1.5">
+                              <span>·</span>
                               {!trip.tripEnded ? (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-emerald-700 bg-emerald-500/15 px-2 py-0.5 rounded-md">
-                                  <Clock className="w-2.5 h-2.5" /> Đang đi
-                                </span>
+                                <Clock className="w-3 h-3 text-emerald-600" title="Đang đi" />
                               ) : (
-                                <span className="inline-flex items-center gap-1 text-[10px] font-bold text-rose-800 bg-rose-500/15 px-2 py-0.5 rounded-md">
-                                  <Flag className="w-2.5 h-2.5" /> Chia tiền
-                                </span>
+                                <Flag className="w-3 h-3 text-rose-600" title="Chia tiền" />
                               )}
                             </div>
                           </>

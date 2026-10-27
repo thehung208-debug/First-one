@@ -1,5 +1,5 @@
 import React from 'react'
-import { Wallet } from 'lucide-react'
+import { Wallet, Users } from 'lucide-react'
 import { formatVND } from '../utils/currency'
 
 export default function SummaryCards({ calculation }) {
@@ -27,19 +27,14 @@ export default function SummaryCards({ calculation }) {
         <Wallet className="w-5 h-5" />
       </div>
       <div className="flex-1">
-        <div className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-          Tổng chi
-        </div>
         <div className="text-2xl sm:text-3xl font-black tracking-tight" style={{ color: 'var(--accent)' }}>
           {formatVND(totalSpendingVND)}
         </div>
       </div>
       <div className="text-right">
-        <div className="text-[10px] font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-          TB / người
-        </div>
-        <div className="text-sm font-black" style={{ color: 'var(--text-main)' }}>
-          {formatVND(averagePerPersonVND)}
+        <div className="text-xs font-black flex items-center justify-end gap-1" style={{ color: 'var(--text-main)' }}>
+          <Users className="w-3.5 h-3.5 opacity-60" />
+          <span>{formatVND(averagePerPersonVND)}</span>
         </div>
       </div>
     </div>

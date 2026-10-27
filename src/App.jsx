@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react'
+import { Users, Receipt } from 'lucide-react'
 import Header from './components/Header'
 import MemberManager from './components/MemberManager'
 import ExpenseForm from './components/ExpenseForm'
@@ -358,9 +359,10 @@ export default function App() {
                 >
                   <span
                     style={{ color: 'var(--accent)' }}
-                    className="text-xs font-black uppercase tracking-wider"
+                    className="text-xs font-bold flex items-center gap-1.5"
                   >
-                    Chi tiêu ({expenses.length})
+                    <Receipt className="w-4 h-4" />
+                    <span>{expenses.length}</span>
                   </span>
                   <ExpenseList
                     expenses={expenses}
@@ -401,9 +403,10 @@ export default function App() {
               >
                 <span
                   style={{ color: 'var(--accent)' }}
-                  className="text-xs font-black uppercase tracking-wider"
+                  className="text-xs font-bold flex items-center gap-1.5"
                 >
-                  Thành viên ({members.length})
+                  <Users className="w-4 h-4" />
+                  <span>{members.length}</span>
                 </span>
                 <MemberManager
                   members={members}
@@ -427,9 +430,10 @@ export default function App() {
               >
                 <span
                   style={{ color: 'var(--accent)' }}
-                  className="text-xs font-black uppercase tracking-wider"
+                  className="text-xs font-bold flex items-center gap-1.5"
                 >
-                  Thành viên ({members.length})
+                  <Users className="w-4 h-4" />
+                  <span>{members.length}</span>
                 </span>
                 <MemberManager
                   members={members}
@@ -481,9 +485,10 @@ export default function App() {
                 >
                   <span
                     style={{ color: 'var(--accent)' }}
-                    className="text-xs font-black uppercase tracking-wider"
+                    className="text-xs font-bold flex items-center gap-1.5"
                   >
-                    Chi tiêu ({expenses.length})
+                    <Receipt className="w-4 h-4" />
+                    <span>{expenses.length}</span>
                   </span>
                   <ExpenseList
                     expenses={expenses}
