@@ -1,10 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, sans-serif;
+  --font-heading: 'Coiny', cursive, sans-serif;
+  --font-body: 'Ruge Boogie', cursive, sans-serif;
 }
 
 :root {
+  --font-heading: 'Coiny', cursive, sans-serif;
+  --font-body: 'Ruge Boogie', cursive, sans-serif;
+
   /* Giao diện Đỏ Sang Trọng & Rực Rỡ (Ruby Red Theme) */
   --app-bg: #fff5f5;          /* Nền đỏ kem / hồng phấn rất nhẹ dịu mắt */
   --card-bg: #ffffff;         /* Thẻ nội dung màu trắng tinh tế */
@@ -22,19 +26,53 @@
   --header-border: #fecdd3;   /* Viền header */
 }
 
+/* Áp dụng font Ruge Boogie cho tất cả các chữ thông thường */
 #root,
-body {
-  font-family: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  background-color: var(--app-bg);
-  color: var(--text-main);
-  letter-spacing: 0.01em;
-}
-
+body,
+p,
+span,
+div,
+a,
+label,
 input,
 button,
 select,
-textarea {
-  font-family: 'Baloo 2', 'Playpen Sans', 'Comfortaa', cursive, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+textarea,
+li,
+td,
+th {
+  font-family: var(--font-body) !important;
+}
+
+#root,
+body {
+  background-color: var(--app-bg);
+  color: var(--text-main);
+  letter-spacing: 0.03em;
+  font-size: 17px;
+  line-height: 1.5;
+}
+
+/* Áp dụng font Coiny cho tất cả các tiêu đề */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-heading,
+.font-title,
+header h1,
+header h1 span,
+[data-font="heading"],
+.tracking-wider,
+.uppercase.tracking-wider,
+.text-xs.font-black.uppercase,
+.text-\[11px\].font-black.uppercase,
+.text-2xl.font-black,
+.text-3xl.font-black {
+  font-family: var(--font-heading) !important;
+  letter-spacing: 0.03em;
 }
 
 /* Custom subtle scrollbar */
