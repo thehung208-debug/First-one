@@ -12,7 +12,7 @@
 - **[Sửa lần 2 (Branch: sua-lan-2)](https://github.com/thehung208-debug/First-one/tree/sua-lan-2):** Giao diện phong cách Trắng Đen (Monochrome).
 - **[Sửa lần 3 (Branch: sua-lan-3)](https://github.com/thehung208-debug/First-one/tree/sua-lan-3):** Hỗ trợ PWA cài đặt app điện thoại, Cloudflare Pages, nút "All" chọn tất cả, bổ sung chi tiêu bị sót sau khi chốt sổ, và quản lý nhiều chuyến đi kèm màn hình chào mừng lúc mới vào.
 - **[Sửa lần 4 (Branch: sua-lan-4)](https://github.com/thehung208-debug/First-one/tree/sua-lan-4):** Khắc phục toàn bộ các nút bấm (button), tối ưu trải nghiệm kết thúc chuyến đi (tự động chuyển sang đi tiếp khi nạp thêm tiền và nút quay lại chuyến đi nổi bật tránh ấn nhầm).
-- **[Font Hoạt Hình (Branch: font-hoat-hinh)](https://github.com/thehung208-debug/First-one/tree/font-hoat-hinh):** Điều chỉnh toàn bộ font chữ và số sang phong cách hoạt hình (Cartoon/Comic) đáng yêu, sống động với bộ font Baloo 2, Playpen Sans & Comfortaa hỗ trợ tiếng Việt chuẩn.
+- **Phiên bản hoàn chỉnh (main):** Tích hợp toàn bộ tính năng PWA, quản lý nhiều chuyến đi, sửa các nút bấm, giao diện màu Đỏ Ruby sang trọng và bộ font hoạt hình đáng yêu (Baloo 2, Playpen Sans & Comfortaa).
 
 - 🌍 **Đa tiền tệ:** Hỗ trợ nhập trực tiếp bằng nhiều loại tiền tệ: Euro (€ - EUR), Złoty Ba Lan (zł - PLN), VNĐ (₫), USD ($)...
 - ⚡ **Quy đổi thời gian thực:** Tự động quy đổi tỷ giá trực tiếp sang tiền VNĐ theo tỷ giá mở quốc tế.

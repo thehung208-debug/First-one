@@ -168,7 +168,7 @@ export default function ExpenseForm({
         color: 'var(--text-main)',
       }}
       className={`rounded-2xl p-4 sm:p-5 space-y-3.5 border-2 shadow-sm transition-all duration-300 ${
-        isHighlighted ? 'ring-4 ring-amber-400/60 shadow-lg scale-[1.01]' : ''
+        isHighlighted ? 'ring-4 ring-rose-400/60 shadow-lg scale-[1.01]' : ''
       }`}
     >
       {/* Alert banner when trip is ended and user is adding missing expenses */}
@@ -182,7 +182,7 @@ export default function ExpenseForm({
           className="px-3.5 py-2.5 rounded-xl text-xs font-bold border flex items-center justify-between gap-2 animate-fade-in"
         >
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 shrink-0 text-amber-600" />
+            <Sparkles className="w-4 h-4 shrink-0 text-rose-600" />
             <span>Nạp thêm chi tiêu: Khi lưu, chuyến đi sẽ tự động chuyển về trạng thái tiếp tục đi!</span>
           </div>
         </div>
@@ -352,7 +352,7 @@ export default function ExpenseForm({
                 borderColor: isAllSelected ? 'var(--accent)' : 'var(--input-border)',
               }}
               className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-extrabold border transition-all cursor-pointer ${
-                isAllSelected ? 'shadow-2xs' : 'opacity-75 hover:opacity-100 hover:border-amber-600'
+                isAllSelected ? 'shadow-2xs' : 'opacity-75 hover:opacity-100 hover:border-rose-600'
               }`}
               title={isAllSelected ? 'Bấm để bỏ chọn bớt' : 'Bấm để chọn tất cả thành viên'}
             >

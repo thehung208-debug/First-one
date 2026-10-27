@@ -63,7 +63,7 @@ export default function SettlementPlan({
         }}
         className="rounded-2xl p-5 text-center text-xs border-2 shadow-sm space-y-3 animate-fade-in"
       >
-        <div className="flex items-center justify-center gap-1.5 font-extrabold text-xs text-amber-800">
+        <div className="flex items-center justify-center gap-1.5 font-extrabold text-xs text-rose-800">
           <Flag className="w-4 h-4" />
           <span>Đã kết thúc chuyến đi (Tạm chốt sổ)</span>
         </div>
@@ -90,7 +90,7 @@ export default function SettlementPlan({
               borderColor: 'var(--input-border)',
               color: 'var(--text-main)',
             }}
-            className="px-4 py-2 rounded-xl font-bold border hover:border-amber-600 flex items-center justify-center gap-1.5 cursor-pointer"
+            className="px-4 py-2 rounded-xl font-bold border hover:border-rose-600 flex items-center justify-center gap-1.5 cursor-pointer"
           >
             <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
           </button>
@@ -143,7 +143,7 @@ export default function SettlementPlan({
             borderColor: 'var(--accent)',
             color: 'var(--accent)',
           }}
-          className="w-full sm:w-auto px-3.5 py-2 rounded-xl text-xs font-black border-2 shadow-2xs hover:bg-amber-500/10 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
+          className="w-full sm:w-auto px-3.5 py-2 rounded-xl text-xs font-black border-2 shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0"
         >
           <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
         </button>
@@ -174,9 +174,9 @@ export default function SettlementPlan({
 
       {/* Recalculated Notification Banner */}
       {recentlyRecalculated && (
-        <div className="px-3.5 py-2.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-900 text-xs font-bold flex items-center justify-between gap-2 animate-fade-in shadow-xs">
+        <div className="px-3.5 py-2.5 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-900 text-xs font-bold flex items-center justify-between gap-2 animate-fade-in shadow-xs">
           <div className="flex items-center gap-2">
-            <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
+            <Sparkles className="w-4 h-4 text-rose-600 shrink-0" />
             <span>Đã tự động tính toán lại số tiền cần chuyển theo khoản chi mới!</span>
           </div>
           {onDismissRecalculated && (
@@ -316,7 +316,7 @@ export default function SettlementPlan({
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold border hover:border-amber-600 transition-all cursor-pointer flex items-center justify-center gap-1.5"
+          className="w-full py-2.5 px-3 rounded-xl text-xs font-bold border hover:border-rose-600 transition-all cursor-pointer flex items-center justify-center gap-1.5"
         >
           <RotateCcw className="w-3.5 h-3.5" /> Quay lại chuyến đi (Đi tiếp)
         </button>

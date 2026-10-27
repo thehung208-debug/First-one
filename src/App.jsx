@@ -273,7 +273,7 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between antialiased selection:bg-amber-200 selection:text-amber-950">
+    <div className="relative min-h-screen flex flex-col justify-between antialiased selection:bg-rose-200 selection:text-rose-950">
       {/* Background layer */}
       <div 
         className="fixed inset-0 pointer-events-none z-0 bg-contain bg-top sm:bg-center bg-no-repeat opacity-15"
