@@ -367,20 +367,6 @@ export default function TripSelector({
                   >
                     <Plus className="w-4 h-4" /> Tạo chuyến mới
                   </button>
-
-                  {onOpenWelcomeGateway && (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setIsOpen(false)
-                        onOpenWelcomeGateway()
-                      }}
-                      style={{ color: 'var(--text-muted)' }}
-                      className="w-full text-center text-xs sm:text-sm font-semibold opacity-70 hover:opacity-100 hover:underline cursor-pointer transition-opacity py-1"
-                    >
-                      Màn hình chào mừng
-                    </button>
-                  )}
                 </div>
               )}
             </div>

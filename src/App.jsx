@@ -7,7 +7,6 @@ import ExpenseList from './components/ExpenseList'
 import SummaryCards from './components/SummaryCards'
 import SettlementPlan from './components/SettlementPlan'
 import TripSelector from './components/TripSelector'
-import WelcomeGateway from './components/WelcomeGateway'
 import ConfirmModal from './components/ConfirmModal'
 import { DEFAULT_RATES, fetchLiveExchangeRates, convertToVND, formatVND } from './utils/currency'
 import { calculateSettlement } from './utils/settlement'
@@ -77,7 +76,6 @@ export default function App() {
   const [editingExpense, setEditingExpense] = useState(null)
   const [isFormHighlighted, setIsFormHighlighted] = useState(false)
   const [recentlyRecalculated, setRecentlyRecalculated] = useState(false)
-  const [showWelcomeGateway, setShowWelcomeGateway] = useState(true)
   const [confirmConfig, setConfirmConfig] = useState(null)
 
   const formRef = useRef(null)
@@ -318,17 +316,6 @@ export default function App() {
     })
   }
 
-  const handleContinueTrip = (tripId) => {
-    setActiveTripId(tripId)
-    setShowWelcomeGateway(false)
-    setEditingExpense(null)
-  }
-
-  const handleCreateNewTripFromGateway = ({ name, copyMembersFromActive }) => {
-    handleCreateTrip({ name, copyMembersFromActive })
-    setShowWelcomeGateway(false)
-  }
-
   return (
     <div className="relative min-h-screen flex flex-col justify-between antialiased selection:bg-rose-200 selection:text-rose-950">
       {/* Background layer */}
@@ -380,7 +367,6 @@ export default function App() {
               onCreateTrip={handleCreateTrip}
               onRenameTrip={handleRenameTrip}
               onDeleteTrip={handleDeleteTrip}
-              onOpenWelcomeGateway={() => setShowWelcomeGateway(true)}
             />
           </div>
         </header>
@@ -562,18 +548,6 @@ export default function App() {
           )}
         </main>
       </div>
-
-      {/* Welcome / Trip Choice Gateway on First Visit */}
-      {showWelcomeGateway && (
-        <WelcomeGateway
-          trips={trips}
-          activeTripId={activeTrip?.id || activeTripId}
-          rates={rates}
-          onContinueTrip={handleContinueTrip}
-          onCreateNewTrip={handleCreateNewTripFromGateway}
-          onDismiss={() => setShowWelcomeGateway(false)}
-        />
-      )}
 
       {/* Confirmation Dialog */}
       <ConfirmModal

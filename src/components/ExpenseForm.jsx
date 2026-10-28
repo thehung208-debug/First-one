@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Plus, Check, User, Users, Sparkles, CheckCheck } from 'lucide-react'
+import { Plus, Check, User, Users, Sparkles } from 'lucide-react'
 import { SUPPORTED_CURRENCIES, convertToVND, formatVND } from '../utils/currency'
 
 function formatInputDisplay(value) {
@@ -311,24 +311,11 @@ export default function ExpenseForm({
 
         {/* Participants */}
         <div className="space-y-1.5">
-          <div className="flex items-center justify-between">
-            <label className="text-xs sm:text-sm font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+          <div className="flex items-center">
+            <label className="text-xs sm:text-sm font-bold flex items-center gap-1.5" style={{ color: 'var(--text-muted)' }}>
               <Users className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'var(--accent)' }} />
               <span className="text-xs opacity-75">({participantIds.length}/{members.length})</span>
             </label>
-            <button
-              type="button"
-              onClick={handleToggleAllParticipants}
-              style={{
-                backgroundColor: isAllSelected ? 'var(--badge-bg)' : 'transparent',
-                color: 'var(--accent)',
-                borderColor: 'var(--card-border)',
-              }}
-              className="w-8 h-8 flex items-center justify-center rounded-xl border hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
-              title={isAllSelected ? 'Bỏ chọn' : 'Chọn hết'}
-            >
-              <CheckCheck className="w-4 h-4" />
-            </button>
           </div>
           <div
             style={{

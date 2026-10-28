@@ -156,7 +156,7 @@ export default function QrModal({ isOpen, onClose, transaction }) {
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-2.5 pt-1">
+          <div className="pt-1">
             <button
               type="button"
               onClick={copyInfo}
@@ -164,23 +164,10 @@ export default function QrModal({ isOpen, onClose, transaction }) {
                 backgroundColor: 'var(--accent)',
                 color: 'var(--accent-text)',
               }}
-              className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-3 rounded-2xl font-bold text-sm shadow-md transition-all cursor-pointer min-h-[48px]"
+              className="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-2xl font-bold text-sm shadow-md transition-all cursor-pointer min-h-[48px]"
             >
               {copied ? <Check className="w-4 h-4 stroke-[2.5]" /> : <Copy className="w-4 h-4" />}
-              <span>{copied ? 'Đã sao chép!' : 'Sao chép'}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={onClose}
-              style={{
-                backgroundColor: 'var(--input-bg)',
-                borderColor: 'var(--input-border)',
-                color: 'var(--text-main)',
-              }}
-              className="px-5 py-3 rounded-2xl border font-bold text-sm transition-all cursor-pointer min-h-[48px]"
-            >
-              Đóng
+              <span>{copied ? 'Đã sao chép!' : 'Sao chép thông tin'}</span>
             </button>
           </div>
         </div>

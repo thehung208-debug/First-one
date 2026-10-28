@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Flag, ArrowRight, CheckCircle2, Circle, QrCode, Sparkles, SendHorizontal, Plus, PlusCircle, RotateCcw } from 'lucide-react'
+import { Flag, ArrowRight, CheckCircle2, Circle, QrCode, Sparkles, SendHorizontal, RotateCcw } from 'lucide-react'
 import confetti from 'canvas-confetti'
 import { formatVND } from '../utils/currency'
 import QrModal from './QrModal'
@@ -67,31 +67,18 @@ export default function SettlementPlan({
         <p className="text-xs sm:text-sm font-medium" style={{ color: 'var(--text-muted)' }}>
           Không ai nợ ai khoản nào nữa!
         </p>
-        <div className="flex gap-2.5 justify-center pt-1">
-          <button
-            type="button"
-            onClick={onTriggerAddExpense}
-            style={{
-              backgroundColor: 'var(--accent)',
-              color: 'var(--accent-text)',
-            }}
-            className="w-12 h-12 rounded-2xl font-bold flex items-center justify-center cursor-pointer shadow-xs active:scale-95 transition-all"
-            title="Thêm chi tiêu"
-          >
-            <Plus className="w-5 h-5 stroke-[2.5]" />
-          </button>
+        <div className="flex justify-center pt-1">
           <button
             type="button"
             onClick={onEndTrip}
             style={{
-              backgroundColor: 'var(--input-bg)',
-              borderColor: 'var(--input-border)',
-              color: 'var(--text-main)',
+              backgroundColor: 'var(--accent)',
+              color: 'var(--accent-text)',
             }}
-            className="w-12 h-12 rounded-2xl font-bold border hover:border-rose-600 flex items-center justify-center cursor-pointer active:scale-95 transition-all"
-            title="Tiếp tục đi"
+            className="px-5 py-3 rounded-2xl font-bold flex items-center justify-center gap-2 cursor-pointer shadow-xs active:scale-95 transition-all min-h-[46px]"
           >
             <RotateCcw className="w-5 h-5" />
+            <span>Tiếp tục</span>
           </button>
         </div>
       </div>
@@ -253,35 +240,6 @@ export default function SettlementPlan({
             </div>
           )
         })}
-      </div>
-
-      {/* Action buttons at bottom */}
-      <div className="pt-2 flex items-center gap-2.5">
-        <button
-          type="button"
-          onClick={onTriggerAddExpense}
-          style={{
-            backgroundColor: 'var(--accent)',
-            color: 'var(--accent-text)',
-          }}
-          className="flex-1 py-4 px-3 rounded-2xl sm:rounded-3xl text-sm sm:text-base font-black shadow-md hover:opacity-95 active:scale-98 transition-all cursor-pointer flex items-center justify-center min-h-[54px]"
-          title="Thêm chi tiêu"
-        >
-          <Plus className="w-6 h-6 stroke-[3]" />
-        </button>
-        <button
-          type="button"
-          onClick={onEndTrip}
-          style={{
-            backgroundColor: 'var(--input-bg)',
-            borderColor: 'var(--input-border)',
-            color: 'var(--text-main)',
-          }}
-          className="w-13 h-13 min-w-[52px] min-h-[52px] rounded-2xl sm:rounded-3xl text-xs font-bold border hover:border-rose-600 active:scale-90 transition-all cursor-pointer flex items-center justify-center shrink-0"
-          title="Tiếp tục đi"
-        >
-          <RotateCcw className="w-5 h-5" />
-        </button>
       </div>
 
       {selectedTxForQr && (
