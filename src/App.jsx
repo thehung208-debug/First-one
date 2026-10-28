@@ -8,7 +8,8 @@ import SummaryCards from './components/SummaryCards'
 import SettlementPlan from './components/SettlementPlan'
 import TripSelector from './components/TripSelector'
 import WelcomeGateway from './components/WelcomeGateway'
-import { DEFAULT_RATES, fetchLiveExchangeRates } from './utils/currency'
+import ConfirmModal from './components/ConfirmModal'
+import { DEFAULT_RATES, fetchLiveExchangeRates, convertToVND, formatVND } from './utils/currency'
 import { calculateSettlement } from './utils/settlement'
 
 const STORAGE_KEYS = {
@@ -77,6 +78,7 @@ export default function App() {
   const [isFormHighlighted, setIsFormHighlighted] = useState(false)
   const [recentlyRecalculated, setRecentlyRecalculated] = useState(false)
   const [showWelcomeGateway, setShowWelcomeGateway] = useState(true)
+  const [confirmConfig, setConfirmConfig] = useState(null)
 
   const formRef = useRef(null)
   const titleInputRef = useRef(null)
@@ -151,14 +153,28 @@ export default function App() {
   const handleAddMember = (m) => updateActiveTrip(t => ({ ...t, members: [...t.members, m] }))
 
   const handleRemoveMember = (id) => {
-    updateActiveTrip(t => ({
-      ...t,
-      members: t.members.filter(m => m.id !== id),
-      expenses: t.expenses.filter(e => e.paidById !== id).map(e => ({
-        ...e,
-        participantIds: (e.participantIds || []).filter(p => p !== id)
-      }))
-    }))
+    const member = members.find(m => m.id === id)
+    if (!member) return
+    const expCount = expenses.filter(e => e.paidById === id).length
+    setConfirmConfig({
+      title: 'Xoá thành viên?',
+      message: expCount > 0
+        ? `Xoá "${member.name}" sẽ xoá luôn ${expCount} khoản chi do người này chi trả.`
+        : `Xoá "${member.name}" khỏi danh sách thành viên.`,
+      confirmText: 'Xoá',
+      isDanger: true,
+      onConfirm: () => {
+        updateActiveTrip(t => ({
+          ...t,
+          members: t.members.filter(m => m.id !== id),
+          expenses: t.expenses.filter(e => e.paidById !== id).map(e => ({
+            ...e,
+            participantIds: (e.participantIds || []).filter(p => p !== id)
+          }))
+        }))
+        setConfirmConfig(null)
+      }
+    })
   }
 
   const handleUpdateMember = (id, updates) => {
@@ -179,9 +195,21 @@ export default function App() {
   }
 
   const handleDeleteExpense = (id) => {
-    updateActiveTrip(t => ({ ...t, expenses: t.expenses.filter(e => e.id !== id) }))
-    if (editingExpense?.id === id) setEditingExpense(null)
-    if (tripEnded) setRecentlyRecalculated(true)
+    const exp = expenses.find(e => e.id === id)
+    if (!exp) return
+    const formattedAmount = formatVND(convertToVND(exp.amount, exp.currency, rates))
+    setConfirmConfig({
+      title: 'Xoá khoản chi?',
+      message: `Xoá khoản "${exp.title}" (${formattedAmount}) khỏi danh sách chi tiêu.`,
+      confirmText: 'Xoá',
+      isDanger: true,
+      onConfirm: () => {
+        updateActiveTrip(t => ({ ...t, expenses: t.expenses.filter(e => e.id !== id) }))
+        if (editingExpense?.id === id) setEditingExpense(null)
+        if (tripEnded) setRecentlyRecalculated(true)
+        setConfirmConfig(null)
+      }
+    })
   }
 
   const handleUpdateExpense = (id, updates) => {
@@ -207,7 +235,7 @@ export default function App() {
     }))
   }
 
-  const handleToggleEndTrip = () => {
+  const executeToggleEndTrip = () => {
     updateActiveTrip(t => {
       const nextTripEnded = !t.tripEnded
       if (nextTripEnded) {
@@ -217,6 +245,23 @@ export default function App() {
       }
       return { ...t, tripEnded: nextTripEnded }
     })
+  }
+
+  const handleToggleEndTrip = () => {
+    if (!tripEnded) {
+      setConfirmConfig({
+        title: 'Tính tiền chuyến đi?',
+        message: 'Hệ thống sẽ chốt sổ chi tiêu và tính toán chuyển khoản giữa các thành viên.',
+        confirmText: 'Tính tiền',
+        isDanger: false,
+        onConfirm: () => {
+          executeToggleEndTrip()
+          setConfirmConfig(null)
+        }
+      })
+    } else {
+      executeToggleEndTrip()
+    }
   }
 
   // Trip management operations
@@ -253,12 +298,23 @@ export default function App() {
   }
 
   const handleDeleteTrip = (tripId) => {
-    setTrips(prev => {
-      const remaining = prev.filter(t => t.id !== tripId)
-      if (activeTripId === tripId && remaining.length > 0) {
-        setActiveTripId(remaining[0].id)
+    if (trips.length <= 1) return
+    const trip = trips.find(t => t.id === tripId)
+    setConfirmConfig({
+      title: 'Xoá chuyến đi?',
+      message: `Chuyến đi "${trip?.name || 'này'}" và toàn bộ dữ liệu sẽ bị xoá vĩnh viễn.`,
+      confirmText: 'Xoá',
+      isDanger: true,
+      onConfirm: () => {
+        setTrips(prev => {
+          const remaining = prev.filter(t => t.id !== tripId)
+          if (activeTripId === tripId && remaining.length > 0) {
+            setActiveTripId(remaining[0].id)
+          }
+          return remaining
+        })
+        setConfirmConfig(null)
       }
-      return remaining
     })
   }
 
@@ -518,6 +574,18 @@ export default function App() {
           onDismiss={() => setShowWelcomeGateway(false)}
         />
       )}
+
+      {/* Confirmation Dialog */}
+      <ConfirmModal
+        isOpen={Boolean(confirmConfig)}
+        title={confirmConfig?.title}
+        message={confirmConfig?.message}
+        confirmText={confirmConfig?.confirmText}
+        cancelText="Hủy"
+        isDanger={confirmConfig?.isDanger}
+        onConfirm={confirmConfig?.onConfirm}
+        onCancel={() => setConfirmConfig(null)}
+      />
     </div>
   )
 }

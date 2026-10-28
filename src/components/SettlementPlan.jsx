@@ -113,10 +113,10 @@ export default function SettlementPlan({
           backgroundColor: 'var(--badge-bg)',
           borderColor: 'var(--card-border)',
         }}
-        className="px-3 py-1.5 rounded-xl border flex items-center justify-between gap-2"
+        className="px-3.5 py-2 rounded-2xl border flex items-center justify-between gap-2"
       >
-        <div className="flex items-center gap-1.5 text-xs font-bold" style={{ color: 'var(--accent)' }}>
-          <Flag className="w-3.5 h-3.5" />
+        <div className="flex items-center gap-2 text-xs font-bold" style={{ color: 'var(--accent)' }}>
+          <Flag className="w-4 h-4" />
         </div>
 
         <button
@@ -127,10 +127,10 @@ export default function SettlementPlan({
             borderColor: 'var(--accent)',
             color: 'var(--accent)',
           }}
-          className="p-1 rounded-lg text-xs font-bold border shadow-2xs hover:bg-rose-500/10 transition-all cursor-pointer flex items-center gap-1 shrink-0"
+          className="w-9 h-9 rounded-xl text-xs font-bold border shadow-2xs hover:bg-rose-500/10 active:scale-90 transition-all cursor-pointer flex items-center justify-center shrink-0"
           title="Tiếp tục đi"
         >
-          <RotateCcw className="w-3.5 h-3.5" />
+          <RotateCcw className="w-4 h-4" />
         </button>
       </div>
 
@@ -201,28 +201,28 @@ export default function SettlementPlan({
                 <button
                   type="button"
                   onClick={() => handleToggle(tx.id)}
-                  className="opacity-70 hover:opacity-100 hover:text-emerald-600 transition-colors cursor-pointer shrink-0"
+                  className="w-9 h-9 flex items-center justify-center rounded-xl opacity-80 hover:opacity-100 hover:text-emerald-600 hover:bg-black/5 active:scale-90 transition-all cursor-pointer shrink-0"
                 >
                   {isDone ? <CheckCircle2 className="w-5 h-5 text-emerald-600" /> : <Circle className="w-5 h-5" />}
                 </button>
 
                 <div
-                  className="w-6 h-6 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0 shadow-xs"
+                  className="w-7 h-7 rounded-full text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-xs"
                   style={{ backgroundColor: tx.fromMember?.color || '#78350f' }}
                 >
                   {tx.fromName.charAt(0)}
                 </div>
-                <span className={`font-bold text-xs truncate ${isDone ? 'line-through opacity-50' : ''}`}>
+                <span className={`font-bold text-xs sm:text-sm truncate ${isDone ? 'line-through opacity-50' : ''}`}>
                   {tx.fromName}
                 </span>
                 <ArrowRight className="w-3.5 h-3.5 shrink-0" style={{ color: 'var(--accent)' }} />
                 <div
-                  className="w-6 h-6 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0 shadow-xs"
+                  className="w-7 h-7 rounded-full text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-xs"
                   style={{ backgroundColor: tx.toMember?.color || '#0284c7' }}
                 >
                   {tx.toName.charAt(0)}
                 </div>
-                <span className={`font-bold text-xs truncate ${isDone ? 'line-through opacity-50' : ''}`}>
+                <span className={`font-bold text-xs sm:text-sm truncate ${isDone ? 'line-through opacity-50' : ''}`}>
                   {tx.toName}
                 </span>
               </div>
@@ -230,7 +230,7 @@ export default function SettlementPlan({
               <div className="flex items-center gap-2 shrink-0">
                 <span
                   style={{ color: isDone ? 'var(--text-muted)' : 'var(--accent)' }}
-                  className="font-black text-sm tracking-tight"
+                  className="font-black text-sm sm:text-base tracking-tight"
                 >
                   {formatVND(tx.amountVND)}
                 </span>
@@ -242,10 +242,10 @@ export default function SettlementPlan({
                     borderColor: 'var(--card-border)',
                     color: 'var(--badge-text)',
                   }}
-                  className="p-1.5 rounded-lg border transition-all cursor-pointer shadow-2xs hover:opacity-90"
+                  className="w-9 h-9 flex items-center justify-center rounded-xl border transition-all cursor-pointer shadow-2xs hover:opacity-90 active:scale-90"
                   title="VietQR"
                 >
-                  <QrCode className="w-3.5 h-3.5" />
+                  <QrCode className="w-4 h-4" />
                 </button>
               </div>
             </div>
@@ -262,7 +262,7 @@ export default function SettlementPlan({
             backgroundColor: 'var(--accent)',
             color: 'var(--accent-text)',
           }}
-          className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all cursor-pointer flex items-center justify-center"
+          className="flex-1 py-3 px-3 rounded-2xl text-xs font-bold shadow-md hover:opacity-95 active:scale-98 transition-all cursor-pointer flex items-center justify-center min-h-[48px]"
           title="Thêm chi tiêu"
         >
           <Plus className="w-5 h-5 stroke-[2.5]" />
@@ -275,7 +275,7 @@ export default function SettlementPlan({
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="p-2.5 rounded-xl text-xs font-bold border hover:border-rose-600 transition-all cursor-pointer flex items-center justify-center shrink-0"
+          className="w-12 h-12 rounded-2xl text-xs font-bold border hover:border-rose-600 active:scale-90 transition-all cursor-pointer flex items-center justify-center shrink-0"
           title="Tiếp tục đi"
         >
           <RotateCcw className="w-4 h-4" />

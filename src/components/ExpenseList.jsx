@@ -63,12 +63,22 @@ export default function ExpenseList({
                     </div>
                   )}
                 </div>
-                <div className="flex items-center gap-0.5 opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                  <button type="button" onClick={() => onEditExpense(exp)} className="p-1 rounded opacity-70 hover:opacity-100 cursor-pointer" title="Chỉnh sửa">
-                    <Edit3 className="w-3.5 h-3.5" />
+                <div className="flex items-center gap-1 opacity-90 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                  <button
+                    type="button"
+                    onClick={() => onEditExpense(exp)}
+                    className="w-8 h-8 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
+                    title="Chỉnh sửa"
+                  >
+                    <Edit3 className="w-4 h-4" />
                   </button>
-                  <button type="button" onClick={() => onDeleteExpense(exp.id)} className="p-1 rounded opacity-70 hover:opacity-100 hover:text-rose-500 cursor-pointer" title="Xóa">
-                    <Trash2 className="w-3.5 h-3.5" />
+                  <button
+                    type="button"
+                    onClick={() => onDeleteExpense(exp.id)}
+                    className="w-8 h-8 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
+                    title="Xóa"
+                  >
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </div>
               </div>

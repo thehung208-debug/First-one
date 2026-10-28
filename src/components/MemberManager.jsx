@@ -38,48 +38,52 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="group inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs font-semibold shadow-2xs transition-all"
+          className="group inline-flex items-center gap-2 px-3 py-1.5 sm:py-2 rounded-xl border text-xs sm:text-sm font-bold shadow-2xs transition-all min-h-[38px]"
         >
           <div
-            className="w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0 shadow-xs"
+            className="w-6 h-6 rounded-full text-white text-[11px] font-bold flex items-center justify-center shrink-0 shadow-xs"
             style={{ backgroundColor: m.color }}
           >
             {m.name.charAt(0).toUpperCase()}
           </div>
 
           {editingId === m.id ? (
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1.5">
               <input
                 type="text"
                 value={editName}
                 onChange={(e) => setEditName(e.target.value)}
-                className="w-20 px-1.5 py-0.5 border rounded text-xs bg-white text-stone-900 focus:outline-none"
+                className="w-24 px-2 py-1 border rounded-lg text-xs bg-white text-stone-900 focus:outline-none"
                 style={{ borderColor: 'var(--accent)' }}
                 autoFocus
                 onKeyDown={(e) => e.key === 'Enter' && saveEdit(m.id)}
               />
-              <button type="button" onClick={() => saveEdit(m.id)} className="text-emerald-600 p-0.5 cursor-pointer">
-                <Check className="w-3.5 h-3.5" />
+              <button
+                type="button"
+                onClick={() => saveEdit(m.id)}
+                className="w-7 h-7 flex items-center justify-center rounded-lg text-emerald-600 hover:bg-emerald-50 cursor-pointer"
+              >
+                <Check className="w-4 h-4" />
               </button>
             </div>
           ) : (
             <div className="flex items-center gap-1">
-              <span>{m.name}</span>
+              <span className="truncate max-w-[120px]">{m.name}</span>
               <button
                 type="button"
                 onClick={() => { setEditingId(m.id); setEditName(m.name) }}
-                className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-stone-700"
+                className="w-7 h-7 flex items-center justify-center rounded-lg opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity cursor-pointer text-stone-400 hover:text-stone-800 hover:bg-black/5 active:scale-90"
                 title="Sửa"
               >
-                <Edit2 className="w-3 h-3" />
+                <Edit2 className="w-3.5 h-3.5" />
               </button>
               <button
                 type="button"
                 onClick={() => onRemoveMember(m.id)}
-                className="opacity-70 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity p-0.5 cursor-pointer text-stone-400 hover:text-rose-600"
+                className="w-7 h-7 flex items-center justify-center rounded-lg opacity-80 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity cursor-pointer text-stone-400 hover:text-rose-600 hover:bg-rose-50 active:scale-90"
                 title="Xóa"
               >
-                <Trash2 className="w-3 h-3" />
+                <Trash2 className="w-3.5 h-3.5" />
               </button>
             </div>
           )}
@@ -98,7 +102,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="w-28 sm:w-36 px-2.5 py-1.5 text-xs rounded-xl border focus:outline-none transition-all placeholder:text-stone-400"
+          className="w-28 sm:w-36 px-3 py-2 text-xs sm:text-sm rounded-xl border focus:outline-none transition-all placeholder:text-stone-400 min-h-[38px]"
         />
         <button
           type="submit"
@@ -107,7 +111,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             backgroundColor: 'var(--accent)',
             color: 'var(--accent-text)',
           }}
-          className="p-1.5 rounded-xl shadow-xs transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer"
+          className="w-10 h-10 rounded-xl shadow-xs transition-all disabled:opacity-40 disabled:cursor-not-allowed cursor-pointer flex items-center justify-center active:scale-95 shrink-0"
         >
           <UserPlus className="w-4 h-4" />
         </button>

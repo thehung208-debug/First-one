@@ -75,9 +75,7 @@ export default function TripSelector({
       alert('Bạn phải giữ lại ít nhất 1 chuyến đi.')
       return
     }
-    if (window.confirm(`Bạn có chắc muốn xóa chuyến đi "${tripName}" không? Mọi chi tiêu trong chuyến đi này sẽ bị xóa.`)) {
-      onDeleteTrip(tripId)
-    }
+    onDeleteTrip(tripId)
   }
 
   // Calculate quick stats for a trip
@@ -279,18 +277,18 @@ export default function TripSelector({
                           type="button"
                           onClick={(e) => handleStartRename(trip, e)}
                           title="Sửa"
-                          className="p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:bg-black/5 transition-all cursor-pointer"
+                          className="w-8 h-8 rounded-xl flex items-center justify-center opacity-70 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
                         >
-                          <Edit3 className="w-3.5 h-3.5" />
+                          <Edit3 className="w-4 h-4" />
                         </button>
                         {trips.length > 1 && (
                           <button
                             type="button"
                             onClick={(e) => handleDelete(trip.id, trip.name, e)}
                             title="Xóa"
-                            className="p-1.5 rounded-lg opacity-60 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 transition-all cursor-pointer"
+                            className="w-8 h-8 rounded-xl flex items-center justify-center opacity-70 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-4 h-4" />
                           </button>
                         )}
                       </div>
