@@ -200,7 +200,6 @@ export default function ExpenseForm({
         ref={titleInputRef}
         type="text"
         required
-        placeholder="Nội dung chi..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         style={{
@@ -208,7 +207,7 @@ export default function ExpenseForm({
           borderColor: 'var(--input-border)',
           color: 'var(--text-main)',
         }}
-        className="w-full px-4 py-3.5 text-base sm:text-lg rounded-2xl border focus:outline-none transition-all placeholder:text-stone-400 font-medium min-h-[50px]"
+        className="w-full px-4 py-3.5 text-base sm:text-lg rounded-2xl border focus:outline-none transition-all font-medium min-h-[50px]"
       />
 
       {/* Amount + Currency row */}
@@ -218,7 +217,6 @@ export default function ExpenseForm({
             type="text"
             inputMode="decimal"
             required
-            placeholder="0"
             value={amountDisplay}
             onChange={handleAmountChange}
             style={{
@@ -226,7 +224,7 @@ export default function ExpenseForm({
               borderColor: 'var(--input-border)',
               color: 'var(--text-main)',
             }}
-            className="w-full pl-4 pr-12 py-3 text-2xl sm:text-3xl font-black rounded-2xl border focus:outline-none transition-all placeholder:text-stone-300 tracking-tight min-h-[54px]"
+            className="w-full pl-4 pr-12 py-3 text-2xl sm:text-3xl font-black rounded-2xl border focus:outline-none transition-all tracking-tight min-h-[54px]"
           />
           <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold opacity-60">
             {SUPPORTED_CURRENCIES.find(c => c.code === currency)?.symbol || currency}

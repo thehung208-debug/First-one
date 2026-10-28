@@ -185,7 +185,6 @@ export default function WelcomeGateway({
           <div className="flex gap-2">
             <input
               type="text"
-              placeholder="Tên chuyến mới..."
               value={newTripName}
               onChange={(e) => setNewTripName(e.target.value)}
               style={{

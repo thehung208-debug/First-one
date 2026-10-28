@@ -311,7 +311,6 @@ export default function TripSelector({
                   <input
                     type="text"
                     required
-                    placeholder="Tên chuyến mới..."
                     value={newTripName}
                     onChange={(e) => setNewTripName(e.target.value)}
                     autoFocus

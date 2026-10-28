@@ -94,7 +94,6 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
       <form onSubmit={handleAdd} className="inline-flex items-center gap-2">
         <input
           type="text"
-          placeholder="Tên..."
           value={newName}
           onChange={(e) => setNewName(e.target.value)}
           style={{
@@ -102,7 +101,7 @@ export default function MemberManager({ members, onAddMember, onRemoveMember, on
             borderColor: 'var(--input-border)',
             color: 'var(--text-main)',
           }}
-          className="w-32 sm:w-44 px-3.5 py-2.5 text-sm sm:text-base rounded-2xl border focus:outline-none transition-all placeholder:text-stone-400 min-h-[46px]"
+          className="w-32 sm:w-44 px-3.5 py-2.5 text-sm sm:text-base rounded-2xl border focus:outline-none transition-all min-h-[46px]"
         />
         <button
           type="submit"

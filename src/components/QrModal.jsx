@@ -117,7 +117,6 @@ export default function QrModal({ isOpen, onClose, transaction }) {
               <label className="text-xs font-bold block mb-1 opacity-80">Số tài khoản:</label>
               <input
                 type="text"
-                placeholder="Nhập STK..."
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
                 style={{
