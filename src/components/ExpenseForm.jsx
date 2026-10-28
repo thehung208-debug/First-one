@@ -167,7 +167,7 @@ export default function ExpenseForm({
         borderColor: isHighlighted ? 'var(--accent)' : 'var(--card-border)',
         color: 'var(--text-main)',
       }}
-      className={`rounded-2xl p-4 sm:p-5 space-y-3.5 border-2 shadow-sm transition-all duration-300 ${
+      className={`rounded-3xl p-4 sm:p-5 space-y-4 border-2 shadow-sm transition-all duration-300 ${
         isHighlighted ? 'ring-4 ring-rose-400/60 shadow-lg scale-[1.01]' : ''
       }`}
     >
@@ -179,7 +179,7 @@ export default function ExpenseForm({
             borderColor: 'var(--card-border)',
             color: 'var(--badge-text)',
           }}
-          className="px-3.5 py-2.5 rounded-xl text-xs font-bold border flex items-center justify-between gap-2 animate-fade-in"
+          className="px-4 py-3 rounded-2xl text-xs sm:text-sm font-bold border flex items-center justify-between gap-2 animate-fade-in"
         >
           <div className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 shrink-0 text-rose-600" />
@@ -189,7 +189,7 @@ export default function ExpenseForm({
       )}
 
       {editingExpense && (
-        <div className="flex items-center justify-between text-xs font-bold">
+        <div className="flex items-center justify-between text-xs sm:text-sm font-bold">
           <span style={{ color: 'var(--accent)' }}>Sửa khoản chi</span>
           <button type="button" onClick={handleCancelEdit} className="opacity-70 hover:opacity-100 underline cursor-pointer">Hủy</button>
         </div>
@@ -208,7 +208,7 @@ export default function ExpenseForm({
           borderColor: 'var(--input-border)',
           color: 'var(--text-main)',
         }}
-        className="w-full px-4 py-3 text-sm sm:text-base rounded-2xl border focus:outline-none transition-all placeholder:text-stone-400 font-medium min-h-[46px]"
+        className="w-full px-4 py-3.5 text-base sm:text-lg rounded-2xl border focus:outline-none transition-all placeholder:text-stone-400 font-medium min-h-[50px]"
       />
 
       {/* Amount + Currency row */}
@@ -226,9 +226,9 @@ export default function ExpenseForm({
               borderColor: 'var(--input-border)',
               color: 'var(--text-main)',
             }}
-            className="w-full pl-4 pr-11 py-3 text-lg font-black rounded-2xl border focus:outline-none transition-all placeholder:text-stone-300 tracking-tight min-h-[46px]"
+            className="w-full pl-4 pr-12 py-3 text-2xl sm:text-3xl font-black rounded-2xl border focus:outline-none transition-all placeholder:text-stone-300 tracking-tight min-h-[54px]"
           />
-          <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs font-bold opacity-60">
+          <span className="absolute right-4 top-1/2 -translate-y-1/2 text-sm font-bold opacity-60">
             {SUPPORTED_CURRENCIES.find(c => c.code === currency)?.symbol || currency}
           </span>
         </div>
@@ -247,7 +247,7 @@ export default function ExpenseForm({
                   borderColor: active ? 'var(--accent)' : 'var(--input-border)',
                   color: active ? 'var(--accent-text)' : 'var(--text-main)',
                 }}
-                className="px-3 py-2 text-xs sm:text-sm font-bold rounded-xl border transition-all cursor-pointer shadow-2xs min-h-[46px] min-w-[38px] flex items-center justify-center active:scale-95"
+                className="px-3.5 py-2.5 text-sm sm:text-base font-extrabold rounded-2xl border transition-all cursor-pointer shadow-2xs min-h-[54px] min-w-[46px] flex items-center justify-center active:scale-95"
               >
                 {c === 'PLN' ? 'zł' : c === 'EUR' ? '€' : c === 'USD' ? '$' : '₫'}
               </button>
@@ -264,9 +264,9 @@ export default function ExpenseForm({
             borderColor: 'var(--card-border)',
             color: 'var(--badge-text)',
           }}
-          className="px-3 py-1.5 rounded-xl text-xs font-bold border flex items-center justify-end animate-fade-in"
+          className="px-4 py-2 rounded-2xl text-xs sm:text-sm font-bold border flex items-center justify-end animate-fade-in"
         >
-          <span className="text-sm font-black tracking-tight">≈ {formatVND(convertedVND)}</span>
+          <span className="text-base font-black tracking-tight">≈ {formatVND(convertedVND)}</span>
         </div>
       )}
 
@@ -274,15 +274,15 @@ export default function ExpenseForm({
       <div className="grid grid-cols-2 gap-3">
         {/* Payer */}
         <div className="space-y-1.5">
-          <label className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-            <User className="w-4 h-4" style={{ color: 'var(--accent)' }} />
+          <label className="text-xs sm:text-sm font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+            <User className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'var(--accent)' }} />
           </label>
           <div
             style={{
               backgroundColor: 'var(--input-bg)',
               borderColor: 'var(--input-border)',
             }}
-            className="flex flex-wrap gap-1.5 p-2 rounded-2xl border max-h-36 overflow-y-auto"
+            className="flex flex-wrap gap-1.5 p-2 rounded-2xl border max-h-40 overflow-y-auto"
           >
             {members.map(m => {
               const isSelected = paidById === m.id
@@ -296,10 +296,10 @@ export default function ExpenseForm({
                     color: isSelected ? 'var(--accent-text)' : 'var(--text-main)',
                     borderColor: isSelected ? 'var(--accent)' : 'var(--input-border)',
                   }}
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer shadow-2xs min-h-[36px] active:scale-95"
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-bold border transition-all cursor-pointer shadow-2xs min-h-[42px] active:scale-95"
                 >
                   <div
-                    className="w-5 h-5 rounded-full text-white text-[10px] font-bold flex items-center justify-center shrink-0"
+                    className="w-6 h-6 rounded-full text-white text-[11px] font-bold flex items-center justify-center shrink-0"
                     style={{ backgroundColor: m.color }}
                   >
                     {m.name.charAt(0)}
@@ -314,9 +314,9 @@ export default function ExpenseForm({
         {/* Participants */}
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
-              <Users className="w-4 h-4" style={{ color: 'var(--accent)' }} />
-              <span className="text-[11px] opacity-75">({participantIds.length}/{members.length})</span>
+            <label className="text-xs sm:text-sm font-bold flex items-center gap-1" style={{ color: 'var(--text-muted)' }}>
+              <Users className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'var(--accent)' }} />
+              <span className="text-xs opacity-75">({participantIds.length}/{members.length})</span>
             </label>
             <button
               type="button"
@@ -326,7 +326,7 @@ export default function ExpenseForm({
                 color: 'var(--accent)',
                 borderColor: 'var(--card-border)',
               }}
-              className="w-7 h-7 flex items-center justify-center rounded-lg border hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
+              className="w-8 h-8 flex items-center justify-center rounded-xl border hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
               title={isAllSelected ? 'Bỏ chọn' : 'Chọn hết'}
             >
               <CheckCheck className="w-4 h-4" />
@@ -337,7 +337,7 @@ export default function ExpenseForm({
               backgroundColor: 'var(--input-bg)',
               borderColor: 'var(--input-border)',
             }}
-            className="flex flex-wrap gap-1.5 p-2 rounded-2xl border max-h-36 overflow-y-auto"
+            className="flex flex-wrap gap-1.5 p-2 rounded-2xl border max-h-40 overflow-y-auto"
           >
             {/* Quick prominent All Pill */}
             <button
@@ -348,12 +348,12 @@ export default function ExpenseForm({
                 color: isAllSelected ? 'var(--accent-text)' : 'var(--text-main)',
                 borderColor: isAllSelected ? 'var(--accent)' : 'var(--input-border)',
               }}
-              className={`flex items-center gap-1 px-3 py-1.5 rounded-xl text-xs font-extrabold border transition-all cursor-pointer min-h-[36px] active:scale-95 ${
+              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-black border transition-all cursor-pointer min-h-[42px] active:scale-95 ${
                 isAllSelected ? 'shadow-2xs' : 'opacity-75 hover:opacity-100 hover:border-rose-600'
               }`}
               title={isAllSelected ? 'Bỏ chọn' : 'Chọn hết'}
             >
-              <Users className="w-3.5 h-3.5" />
+              <Users className="w-4 h-4" />
               <span>All</span>
             </button>
 
@@ -369,7 +369,7 @@ export default function ExpenseForm({
                     color: included ? 'var(--accent-text)' : 'var(--text-muted)',
                     borderColor: included ? 'var(--accent)' : 'transparent',
                   }}
-                  className={`px-2.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer min-h-[36px] active:scale-95 flex items-center ${
+                  className={`px-3 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer min-h-[42px] active:scale-95 flex items-center ${
                     included ? 'shadow-2xs' : 'opacity-40 line-through'
                   }`}
                 >
@@ -389,12 +389,12 @@ export default function ExpenseForm({
           backgroundColor: 'var(--accent)',
           color: 'var(--accent-text)',
         }}
-        className="w-full py-3.5 rounded-2xl text-sm font-bold shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-95 active:scale-98 min-h-[48px]"
+        className="w-full py-4 rounded-2xl sm:rounded-3xl text-base font-black shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-95 active:scale-98 min-h-[54px]"
       >
         {editingExpense ? (
-          <Check className="w-5 h-5 stroke-[2.5]" />
+          <Check className="w-6 h-6 stroke-[3]" />
         ) : (
-          <Plus className="w-5 h-5 stroke-[2.5]" />
+          <Plus className="w-6 h-6 stroke-[3]" />
         )}
       </button>
     </form>

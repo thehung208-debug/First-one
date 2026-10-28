@@ -353,18 +353,18 @@ export default function App() {
           }}
           className="sticky top-0 z-30 border-b-2 shadow-xs"
         >
-          <div className="max-w-2xl mx-auto px-4 py-3 flex items-center justify-between gap-2">
+          <div className="max-w-2xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
               <img
                 src="/forrest.png"
                 alt="Forrest Gump"
                 style={{ borderColor: 'var(--accent)' }}
-                className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl object-cover shadow-sm border-2 rotate-[-2deg] shrink-0"
+                className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl object-cover shadow-sm border-2 rotate-[-2deg] shrink-0"
               />
               <div className="min-w-0">
                 <h1
                   style={{ color: 'var(--accent)' }}
-                  className="text-lg sm:text-2xl font-black tracking-tight leading-tight truncate"
+                  className="text-xl sm:text-2xl font-black tracking-tight leading-tight truncate"
                 >
                   Forrest <span>Gump</span>
                 </h1>
@@ -385,7 +385,7 @@ export default function App() {
           </div>
         </header>
 
-        <main className="w-full max-w-2xl mx-auto px-4 pt-4 pb-12 space-y-4">
+        <main className="w-full max-w-2xl mx-auto px-3 sm:px-4 pt-3.5 pb-16 space-y-4">
           {tripEnded ? (
             <>
               {/* 1. GỢI Ý CHUYỂN TIỀN ĐƯỢC ĐƯA LÊN ĐẦU TIÊN KHI KẾT THÚC CHUYẾN ĐI */}
@@ -411,11 +411,11 @@ export default function App() {
                     borderColor: 'var(--card-border)',
                     color: 'var(--text-main)',
                   }}
-                  className="rounded-2xl p-4 border-2 space-y-2.5 shadow-sm"
+                  className="rounded-3xl p-4 sm:p-5 border-2 space-y-3 shadow-xs"
                 >
                   <span
                     style={{ color: 'var(--accent)' }}
-                    className="text-xs font-bold flex items-center gap-1.5"
+                    className="text-sm font-bold flex items-center gap-1.5"
                   >
                     <Receipt className="w-4 h-4" />
                     <span>{expenses.length}</span>
@@ -455,11 +455,11 @@ export default function App() {
                   borderColor: 'var(--card-border)',
                   color: 'var(--text-main)',
                 }}
-                className="rounded-2xl px-4 py-3.5 border-2 space-y-2 shadow-sm opacity-90"
+                className="rounded-3xl p-4 sm:p-5 border-2 space-y-3 shadow-xs opacity-90"
               >
                 <span
                   style={{ color: 'var(--accent)' }}
-                  className="text-xs font-bold flex items-center gap-1.5"
+                  className="text-sm font-bold flex items-center gap-1.5"
                 >
                   <Users className="w-4 h-4" />
                   <span>{members.length}</span>
@@ -482,11 +482,11 @@ export default function App() {
                   borderColor: 'var(--card-border)',
                   color: 'var(--text-main)',
                 }}
-                className="rounded-2xl px-4 py-3.5 border-2 space-y-2 shadow-sm"
+                className="rounded-3xl p-4 sm:p-5 border-2 space-y-3 shadow-xs"
               >
                 <span
                   style={{ color: 'var(--accent)' }}
-                  className="text-xs font-bold flex items-center gap-1.5"
+                  className="text-sm font-bold flex items-center gap-1.5"
                 >
                   <Users className="w-4 h-4" />
                   <span>{members.length}</span>
@@ -537,11 +537,11 @@ export default function App() {
                     borderColor: 'var(--card-border)',
                     color: 'var(--text-main)',
                   }}
-                  className="rounded-2xl p-4 border-2 space-y-2.5 shadow-sm"
+                  className="rounded-3xl p-4 sm:p-5 border-2 space-y-3 shadow-xs"
                 >
                   <span
                     style={{ color: 'var(--accent)' }}
-                    className="text-xs font-bold flex items-center gap-1.5"
+                    className="text-sm font-bold flex items-center gap-1.5"
                   >
                     <Receipt className="w-4 h-4" />
                     <span>{expenses.length}</span>

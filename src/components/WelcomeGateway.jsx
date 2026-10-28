@@ -56,16 +56,16 @@ export default function WelcomeGateway({
           borderColor: 'var(--card-border)',
           color: 'var(--text-main)',
         }}
-        className="relative w-full max-w-sm rounded-3xl border-2 shadow-2xl p-5 space-y-4 my-auto max-h-[92vh] overflow-y-auto"
+        className="relative w-full max-w-sm rounded-3xl border-2 shadow-2xl p-6 space-y-4 my-auto max-h-[92vh] overflow-y-auto"
       >
         {/* Close Button */}
         <button
           type="button"
           onClick={onDismiss}
           style={{ color: 'var(--text-muted)' }}
-          className="absolute top-4 right-4 p-1.5 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+          className="absolute top-4 right-4 p-2 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
         >
-          <X className="w-4 h-4" />
+          <X className="w-5 h-5" />
         </button>
 
         {/* Brand Header */}
@@ -74,11 +74,11 @@ export default function WelcomeGateway({
             src="/forrest.png"
             alt="Forrest Gump"
             style={{ borderColor: 'var(--accent)' }}
-            className="w-14 h-14 rounded-2xl object-cover shadow-md border-2 rotate-[-2deg] mx-auto"
+            className="w-16 h-16 rounded-2xl object-cover shadow-md border-2 rotate-[-2deg] mx-auto"
           />
           <h2
             style={{ color: 'var(--accent)' }}
-            className="text-xl sm:text-2xl font-black tracking-tight"
+            className="text-2xl font-black tracking-tight"
           >
             Forrest Gump
           </h2>
@@ -91,34 +91,34 @@ export default function WelcomeGateway({
               backgroundColor: 'var(--badge-bg)',
               borderColor: 'var(--card-border)',
             }}
-            className="p-3.5 rounded-2xl border-2 space-y-2.5 shadow-2xs"
+            className="p-4 rounded-2xl border-2 space-y-3 shadow-2xs"
           >
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-1.5 min-w-0">
-                <Luggage className="w-4 h-4 shrink-0" style={{ color: 'var(--accent)' }} />
-                <h3 className="font-bold text-sm truncate">
+              <div className="flex items-center gap-2 min-w-0">
+                <Luggage className="w-5 h-5 shrink-0" style={{ color: 'var(--accent)' }} />
+                <h3 className="font-extrabold text-base truncate">
                   {activeTrip.name}
                 </h3>
               </div>
               {!activeTrip.tripEnded ? (
-                <span className="p-1 rounded-md text-emerald-700 bg-emerald-500/15" title="Đang diễn ra">
-                  <Clock className="w-3 h-3" />
+                <span className="p-1.5 rounded-lg text-emerald-700 bg-emerald-500/15" title="Đang diễn ra">
+                  <Clock className="w-4 h-4" />
                 </span>
               ) : (
-                <span className="p-1 rounded-md text-rose-700 bg-rose-500/15" title="Đang chia tiền">
-                  <Flag className="w-3 h-3" />
+                <span className="p-1.5 rounded-lg text-rose-700 bg-rose-500/15" title="Đang chia tiền">
+                  <Flag className="w-4 h-4" />
                 </span>
               )}
             </div>
 
             {/* Stats with icons */}
-            <div className="flex items-center gap-3 text-xs opacity-80" style={{ color: 'var(--text-muted)' }}>
+            <div className="flex items-center gap-3 text-xs sm:text-sm opacity-85" style={{ color: 'var(--text-muted)' }}>
               <span className="flex items-center gap-1">
-                <Users className="w-3.5 h-3.5" /> {activeStats.memberCount}
+                <Users className="w-4 h-4" /> {activeStats.memberCount}
               </span>
               <span>·</span>
               <span className="flex items-center gap-1">
-                <Receipt className="w-3.5 h-3.5" /> {activeStats.expenseCount}
+                <Receipt className="w-4 h-4" /> {activeStats.expenseCount}
               </span>
               <span>·</span>
               <span className="font-bold" style={{ color: 'var(--accent)' }}>
@@ -134,9 +134,9 @@ export default function WelcomeGateway({
                 backgroundColor: 'var(--accent)',
                 color: 'var(--accent-text)',
               }}
-              className="w-full py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              className="w-full py-3.5 rounded-2xl text-sm font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px]"
             >
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5" />
             </button>
 
             {/* Other trips dropdown if exists */}
@@ -145,15 +145,15 @@ export default function WelcomeGateway({
                 <button
                   type="button"
                   onClick={() => setShowOtherTrips(!showOtherTrips)}
-                  className="text-xs font-bold opacity-70 hover:opacity-100 flex items-center justify-between w-full cursor-pointer"
+                  className="text-xs sm:text-sm font-bold opacity-70 hover:opacity-100 flex items-center justify-between w-full cursor-pointer py-1"
                   style={{ color: 'var(--text-muted)' }}
                 >
                   <span>({otherTrips.length})</span>
-                  {showOtherTrips ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
+                  {showOtherTrips ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </button>
 
                 {showOtherTrips && (
-                  <div className="space-y-1 pt-1.5 max-h-32 overflow-y-auto animate-fade-in">
+                  <div className="space-y-1.5 pt-1.5 max-h-36 overflow-y-auto animate-fade-in">
                     {otherTrips.map(trip => {
                       const s = getTripStats(trip)
                       return (
@@ -164,10 +164,10 @@ export default function WelcomeGateway({
                             backgroundColor: 'var(--card-bg)',
                             borderColor: 'var(--input-border)',
                           }}
-                          className="p-2 rounded-xl border flex items-center justify-between text-xs cursor-pointer hover:border-rose-600 transition-all"
+                          className="p-2.5 rounded-xl border flex items-center justify-between text-xs sm:text-sm cursor-pointer hover:border-rose-600 transition-all min-h-[40px]"
                         >
                           <span className="font-bold truncate pr-2">{trip.name}</span>
-                          <span className="text-[11px] font-bold text-sky-700 shrink-0">
+                          <span className="text-xs font-bold text-sky-700 shrink-0">
                             {formatVND(s.totalVND)} →
                           </span>
                         </div>
@@ -181,8 +181,8 @@ export default function WelcomeGateway({
         )}
 
         {/* Create New Trip Compact Form */}
-        <form onSubmit={handleConfirmCreate} className="space-y-2">
-          <div className="flex gap-1.5">
+        <form onSubmit={handleConfirmCreate} className="space-y-2.5">
+          <div className="flex gap-2">
             <input
               type="text"
               placeholder="Tên chuyến mới..."
@@ -193,7 +193,7 @@ export default function WelcomeGateway({
                 borderColor: 'var(--input-border)',
                 color: 'var(--text-main)',
               }}
-              className="flex-1 px-3 py-2 text-xs font-bold rounded-xl border-2 focus:outline-none"
+              className="flex-1 px-4 py-3 text-sm sm:text-base font-bold rounded-2xl border-2 focus:outline-none min-h-[48px]"
             />
             <button
               type="submit"
@@ -201,22 +201,22 @@ export default function WelcomeGateway({
                 backgroundColor: 'var(--accent)',
                 color: 'var(--accent-text)',
               }}
-              className="px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center shrink-0"
+              className="w-12 h-12 rounded-2xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center shrink-0 min-h-[48px]"
               title="Tạo chuyến mới"
             >
-              <Plus className="w-4 h-4 stroke-[3]" />
+              <Plus className="w-5 h-5 stroke-[3]" />
             </button>
           </div>
 
           {activeTrip?.members?.length > 0 && (
-            <label className="flex items-center gap-1.5 text-[11px] font-semibold cursor-pointer select-none opacity-80">
+            <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer select-none opacity-85 py-0.5">
               <input
                 type="checkbox"
                 checked={copyMembers}
                 onChange={(e) => setCopyMembers(e.target.checked)}
-                className="rounded accent-rose-600 cursor-pointer"
+                className="rounded accent-rose-600 cursor-pointer w-4 h-4"
               />
-              <Users className="w-3 h-3" />
+              <Users className="w-3.5 h-3.5" />
               <span>{activeTrip.members.length}</span>
             </label>
           )}

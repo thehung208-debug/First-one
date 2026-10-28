@@ -38,49 +38,73 @@ export default function QrModal({ isOpen, onClose, transaction }) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs">
-      <div className="bg-white rounded-2xl shadow-2xl border border-[#e5d8cc] w-full max-w-md overflow-hidden animate-fade-in">
-        <div className="px-5 py-4 border-b border-[#eee3d7] flex items-center justify-between bg-[#fbf8f4]">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-fade-in">
+      <div
+        style={{
+          backgroundColor: 'var(--card-bg)',
+          borderColor: 'var(--card-border)',
+          color: 'var(--text-main)',
+        }}
+        className="rounded-3xl shadow-2xl border-2 w-full max-w-md overflow-hidden animate-fade-in"
+      >
+        <div
+          style={{
+            backgroundColor: 'var(--header-bg)',
+            borderColor: 'var(--header-border)',
+          }}
+          className="px-5 py-4 border-b-2 flex items-center justify-between"
+        >
           <div className="flex items-center gap-2">
-            <QrCode className="w-5 h-5 text-sky-600" />
-            <h3 className="font-bold text-sm sm:text-base text-[#422d22]">
+            <QrCode className="w-5 h-5" style={{ color: 'var(--accent)' }} />
+            <h3 className="font-black text-base sm:text-lg">
               Mã VietQR
             </h3>
           </div>
           <button
             type="button"
             onClick={onClose}
-            className="p-1 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-100 transition-colors"
+            className="p-1.5 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="p-5 space-y-4 text-xs">
+        <div className="p-5 space-y-4 text-sm">
           {/* Transaction Info Summary */}
-          <div className="p-3 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-between">
-            <div>
-              <span className="text-stone-500 block">Người chuyển ➔ Người nhận:</span>
-              <span className="font-bold text-[#422d22]">
-                {transaction.fromName} ➔ {transaction.toName}
+          <div
+            style={{
+              backgroundColor: 'var(--badge-bg)',
+              borderColor: 'var(--card-border)',
+            }}
+            className="p-3.5 rounded-2xl border-2 flex items-center justify-between gap-2"
+          >
+            <div className="min-w-0">
+              <span className="text-xs opacity-70 block font-medium">Chuyển đến:</span>
+              <span className="font-extrabold text-sm sm:text-base truncate block" style={{ color: 'var(--accent)' }}>
+                {transaction.toName}
               </span>
             </div>
-            <div className="text-right">
-              <span className="text-stone-500 block">Số tiền:</span>
-              <span className="font-extrabold text-sm text-sky-700">
+            <div className="text-right shrink-0">
+              <span className="text-xs opacity-70 block font-medium">Số tiền:</span>
+              <span className="font-black text-base sm:text-lg tracking-tight" style={{ color: 'var(--accent)' }}>
                 {formatVND(transaction.amountVND)}
               </span>
             </div>
           </div>
 
           {/* Bank Account Settings */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2.5">
             <div>
-              <label className="font-semibold text-stone-600 block mb-1">Ngân hàng nhận:</label>
+              <label className="text-xs font-bold block mb-1 opacity-80">Ngân hàng:</label>
               <select
                 value={bankCode}
                 onChange={(e) => setBankCode(e.target.value)}
-                className="w-full px-2.5 py-1.5 bg-[#fcfaf7] border border-[#d8c8b8] rounded-lg text-[#422d22] font-medium"
+                style={{
+                  backgroundColor: 'var(--input-bg)',
+                  borderColor: 'var(--input-border)',
+                  color: 'var(--text-main)',
+                }}
+                className="w-full px-3 py-2.5 rounded-xl border-2 font-bold text-xs sm:text-sm min-h-[46px]"
               >
                 {POPULAR_BANKS.map(b => (
                   <option key={b.code} value={b.code}>
@@ -90,52 +114,72 @@ export default function QrModal({ isOpen, onClose, transaction }) {
               </select>
             </div>
             <div>
-              <label className="font-semibold text-stone-600 block mb-1">Số tài khoản:</label>
+              <label className="text-xs font-bold block mb-1 opacity-80">Số tài khoản:</label>
               <input
                 type="text"
-                placeholder="Nhập STK nhận tiền..."
+                placeholder="Nhập STK..."
                 value={accountNumber}
                 onChange={(e) => setAccountNumber(e.target.value)}
-                className="w-full px-2.5 py-1.5 bg-[#fcfaf7] border border-[#d8c8b8] rounded-lg text-[#422d22] font-semibold"
+                style={{
+                  backgroundColor: 'var(--input-bg)',
+                  borderColor: 'var(--input-border)',
+                  color: 'var(--text-main)',
+                }}
+                className="w-full px-3 py-2.5 rounded-xl border-2 font-bold text-xs sm:text-sm min-h-[46px]"
               />
             </div>
           </div>
 
           {/* QR Code Display */}
-          <div className="flex flex-col items-center justify-center p-3 bg-stone-50 rounded-xl border border-stone-200">
+          <div
+            style={{
+              backgroundColor: 'var(--input-bg)',
+              borderColor: 'var(--input-border)',
+            }}
+            className="flex flex-col items-center justify-center p-4 rounded-2xl border-2"
+          >
             {qrUrl ? (
               <div className="text-center space-y-2">
                 <img
                   src={qrUrl}
                   alt="VietQR code"
-                  className="w-56 h-auto mx-auto rounded-lg shadow-sm border border-stone-200"
+                  className="w-56 h-auto mx-auto rounded-xl shadow-xs border bg-white p-2"
                 />
-                <p className="text-[11px] text-stone-500">
-                  Mở ứng dụng ngân hàng bất kỳ (VCB, TCB, MB...) quét mã để chuyển tiền ngay.
+                <p className="text-xs opacity-70 font-medium">
+                  Mở ứng dụng ngân hàng quét mã để chuyển ngay
                 </p>
               </div>
             ) : (
-              <div className="py-8 text-center text-stone-400">
-                Vui lòng điền Số tài khoản của <b>{transaction.toName}</b> ở trên để tạo mã QR.
+              <div className="py-8 text-center text-xs opacity-60">
+                Nhập số tài khoản của <b>{transaction.toName}</b> để tạo mã QR.
               </div>
             )}
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center gap-2 pt-2 border-t border-[#eee3d7]">
+          <div className="flex items-center gap-2.5 pt-1">
             <button
               type="button"
               onClick={copyInfo}
-              className="flex-1 inline-flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-[#faf3eb] hover:bg-[#f3e6d8] text-[#78350f] font-semibold border border-[#eedcc8] transition-colors cursor-pointer"
+              style={{
+                backgroundColor: 'var(--accent)',
+                color: 'var(--accent-text)',
+              }}
+              className="flex-1 inline-flex items-center justify-center gap-2 py-3 px-3 rounded-2xl font-bold text-sm shadow-md transition-all cursor-pointer min-h-[48px]"
             >
-              {copied ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              <span>{copied ? 'Đã sao chép!' : 'Sao chép thông tin'}</span>
+              {copied ? <Check className="w-4 h-4 stroke-[2.5]" /> : <Copy className="w-4 h-4" />}
+              <span>{copied ? 'Đã sao chép!' : 'Sao chép'}</span>
             </button>
 
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 font-medium transition-colors cursor-pointer"
+              style={{
+                backgroundColor: 'var(--input-bg)',
+                borderColor: 'var(--input-border)',
+                color: 'var(--text-main)',
+              }}
+              className="px-5 py-3 rounded-2xl border font-bold text-sm transition-all cursor-pointer min-h-[48px]"
             >
               Đóng
             </button>

@@ -54,8 +54,17 @@ body {
   background-color: var(--app-bg);
   color: var(--text-main);
   letter-spacing: -0.01em;
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.5;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Ensure inputs on mobile never cause unwanted iOS zoom and are easy to type */
+input,
+select,
+textarea {
+  font-size: 16px !important;
 }
 
 /* Custom subtle scrollbar */

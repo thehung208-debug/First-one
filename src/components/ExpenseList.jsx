@@ -22,8 +22,8 @@ export default function ExpenseList({
   const hasMore = expenses.length > 3
 
   return (
-    <div className="space-y-1.5">
-      <div className={`space-y-1.5 ${isExpanded ? 'max-h-[380px] overflow-y-auto pr-1' : ''}`}>
+    <div className="space-y-2">
+      <div className={`space-y-2 ${isExpanded ? 'max-h-[420px] overflow-y-auto pr-1' : ''}`}>
         {visibleExpenses.map((exp) => {
           const payer = memberMap.get(exp.paidById)
           const amountVND = convertToVND(exp.amount, exp.currency, rates)
@@ -38,13 +38,13 @@ export default function ExpenseList({
                 borderColor: 'var(--input-border)',
                 color: 'var(--text-main)',
               }}
-              className="px-3 py-2.5 rounded-xl border transition-all flex items-center justify-between gap-2 group shadow-2xs"
+              className="px-3.5 py-3 rounded-2xl border transition-all flex items-center justify-between gap-2.5 group shadow-2xs min-h-[54px]"
             >
-              <div className="flex items-center gap-2.5 min-w-0">
-                <span className="text-base shrink-0">{CATEGORY_ICONS[exp.category] || '💸'}</span>
+              <div className="flex items-center gap-3 min-w-0">
+                <span className="text-xl shrink-0">{CATEGORY_ICONS[exp.category] || '💸'}</span>
                 <div className="min-w-0">
-                  <div className="font-bold text-xs truncate">{exp.title}</div>
-                  <div className="text-[10px] opacity-75">
+                  <div className="font-bold text-sm sm:text-base truncate">{exp.title}</div>
+                  <div className="text-xs sm:text-sm opacity-80 mt-0.5">
                     <span className="font-extrabold" style={{ color: 'var(--accent)' }}>{payer?.name}</span>
                     {' · '}
                     {isAll ? 'tất cả' : participants.join(', ')}
@@ -52,13 +52,13 @@ export default function ExpenseList({
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 shrink-0">
+              <div className="flex items-center gap-2.5 shrink-0">
                 <div className="text-right">
-                  <div className="text-xs font-black" style={{ color: 'var(--accent)' }}>
+                  <div className="text-sm sm:text-base font-black" style={{ color: 'var(--accent)' }}>
                     {formatVND(amountVND)}
                   </div>
                   {exp.currency !== 'VND' && (
-                    <div className="text-[10px] font-bold opacity-75">
+                    <div className="text-xs font-bold opacity-75">
                       {formatOriginalCurrency(exp.amount, exp.currency)}
                     </div>
                   )}
@@ -67,7 +67,7 @@ export default function ExpenseList({
                   <button
                     type="button"
                     onClick={() => onEditExpense(exp)}
-                    className="w-8 h-8 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
+                    className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center opacity-85 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
                     title="Chỉnh sửa"
                   >
                     <Edit3 className="w-4 h-4" />
@@ -75,7 +75,7 @@ export default function ExpenseList({
                   <button
                     type="button"
                     onClick={() => onDeleteExpense(exp.id)}
-                    className="w-8 h-8 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
+                    className="w-9 h-9 min-w-[36px] min-h-[36px] rounded-xl flex items-center justify-center opacity-85 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
                     title="Xóa"
                   >
                     <Trash2 className="w-4 h-4" />
@@ -92,7 +92,7 @@ export default function ExpenseList({
           type="button"
           onClick={() => setIsExpanded(!isExpanded)}
           style={{ color: 'var(--accent)' }}
-          className="w-full flex items-center justify-center gap-1.5 py-1.5 text-xs font-bold hover:underline transition-colors cursor-pointer"
+          className="w-full flex items-center justify-center gap-1.5 py-2.5 text-sm font-bold hover:underline transition-colors cursor-pointer"
         >
           {isExpanded ? (
             <><ChevronUp className="w-4 h-4" /> Thu gọn</>

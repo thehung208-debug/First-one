@@ -99,10 +99,10 @@ export default function TripSelector({
           borderColor: 'var(--card-border)',
           color: 'var(--text-main)',
         }}
-        className="flex items-center gap-2 px-3 py-1.5 rounded-xl border-2 shadow-2xs hover:shadow-xs transition-all cursor-pointer group"
+        className="flex items-center gap-2 px-3.5 py-2 rounded-2xl border-2 shadow-2xs hover:shadow-xs transition-all cursor-pointer group min-h-[42px]"
       >
         <div
-          className="w-2 h-2 rounded-full shrink-0"
+          className="w-2.5 h-2.5 rounded-full shrink-0"
           style={{
             backgroundColor: !activeTrip?.tripEnded
               ? '#10b981' // Green: Ongoing
@@ -112,12 +112,12 @@ export default function TripSelector({
         />
 
         <div className="flex items-center text-left">
-          <span className="text-xs font-bold max-w-[120px] sm:max-w-[160px] truncate leading-tight">
+          <span className="text-xs sm:text-sm font-bold max-w-[130px] sm:max-w-[180px] truncate leading-tight">
             {activeTrip?.name || 'Chuyến đi'}
           </span>
         </div>
 
-        <ChevronDown className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 transition-transform group-hover:translate-y-0.5" />
+        <ChevronDown className="w-4 h-4 opacity-60 group-hover:opacity-100 transition-transform group-hover:translate-y-0.5" />
       </button>
 
       {/* Trips Management Modal */}
@@ -137,11 +137,11 @@ export default function TripSelector({
                 backgroundColor: 'var(--header-bg)',
                 borderColor: 'var(--header-border)',
               }}
-              className="px-5 py-3.5 border-b-2 flex items-center justify-between shrink-0"
+              className="px-5 py-4 border-b-2 flex items-center justify-between shrink-0"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <Compass className="w-5 h-5" style={{ color: 'var(--accent)' }} />
-                <h3 className="font-bold text-sm sm:text-base leading-tight">
+                <h3 className="font-bold text-base sm:text-lg leading-tight">
                   Chuyến đi ({trips.length})
                 </h3>
               </div>
@@ -151,7 +151,7 @@ export default function TripSelector({
                   setIsOpen(false)
                   setIsCreating(false)
                 }}
-                className="p-1.5 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+                className="p-2 rounded-xl opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -177,20 +177,20 @@ export default function TripSelector({
                       backgroundColor: isActive ? 'var(--badge-bg)' : 'var(--input-bg)',
                       borderColor: isActive ? 'var(--accent)' : 'var(--input-border)',
                     }}
-                    className={`p-3 rounded-2xl border-2 transition-all flex items-center justify-between gap-2.5 cursor-pointer hover:shadow-xs ${
+                    className={`p-3.5 sm:p-4 rounded-2xl border-2 transition-all flex items-center justify-between gap-3 cursor-pointer hover:shadow-xs min-h-[62px] ${
                       isActive ? 'ring-2 ring-rose-400/50 shadow-xs' : 'opacity-90 hover:opacity-100'
                     }`}
                   >
-                    <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <div className="flex items-center gap-3 min-w-0 flex-1">
                       {/* Active indicator dot/check */}
                       <div
-                        className="w-7 h-7 rounded-xl flex items-center justify-center shrink-0 font-bold text-xs shadow-2xs"
+                        className="w-8 h-8 rounded-xl flex items-center justify-center shrink-0 font-bold text-xs shadow-2xs"
                         style={{
                           backgroundColor: isActive ? 'var(--accent)' : 'var(--card-bg)',
                           color: isActive ? 'var(--accent-text)' : 'var(--text-muted)',
                         }}
                       >
-                        {isActive ? <Check className="w-4 h-4 stroke-[3]" /> : <Compass className="w-3.5 h-3.5" />}
+                        {isActive ? <Check className="w-4 h-4 stroke-[3]" /> : <Compass className="w-4 h-4" />}
                       </div>
 
                       {/* Info & Rename */}
@@ -211,14 +211,14 @@ export default function TripSelector({
                                 borderColor: 'var(--accent)',
                                 color: 'var(--text-main)',
                               }}
-                              className="px-2 py-1 text-xs font-bold rounded-lg border focus:outline-none w-full"
+                              className="px-3 py-1.5 text-sm font-bold rounded-xl border-2 focus:outline-none w-full"
                             />
                             <button
                               type="button"
                               onClick={(e) => handleConfirmRename(trip.id, e)}
-                              className="p-1 rounded-md bg-emerald-600 text-white cursor-pointer"
+                              className="p-1.5 rounded-lg bg-emerald-600 text-white cursor-pointer"
                             >
-                              <Check className="w-3.5 h-3.5" />
+                              <Check className="w-4 h-4" />
                             </button>
                             <button
                               type="button"
@@ -226,15 +226,15 @@ export default function TripSelector({
                                 e.stopPropagation()
                                 setEditingTripId(null)
                               }}
-                              className="p-1 rounded-md opacity-60 hover:opacity-100 cursor-pointer"
+                              className="p-1.5 rounded-lg opacity-60 hover:opacity-100 cursor-pointer"
                             >
-                              <X className="w-3.5 h-3.5" />
+                              <X className="w-4 h-4" />
                             </button>
                           </div>
                         ) : (
                           <>
                             <div className="flex items-center gap-2">
-                              <span className="font-extrabold text-xs sm:text-sm truncate">
+                              <span className="font-extrabold text-sm sm:text-base truncate">
                                 {trip.name}
                               </span>
                               {isActive && (
@@ -243,26 +243,26 @@ export default function TripSelector({
                                     backgroundColor: 'var(--accent)',
                                     color: 'var(--accent-text)',
                                   }}
-                                  className="text-[9px] font-bold uppercase px-1.5 py-0.2 rounded-md"
+                                  className="text-[10px] font-bold uppercase px-2 py-0.5 rounded-md"
                                 >
                                   Hiện tại
                                 </span>
                               )}
                             </div>
 
-                            <div className="text-[10px] sm:text-[11px] opacity-75 font-medium flex items-center gap-2 mt-0.5" style={{ color: 'var(--text-muted)' }}>
-                              <span className="flex items-center gap-1"><Users className="w-3 h-3" /> {stats.memberCount}</span>
+                            <div className="text-xs sm:text-sm opacity-80 font-medium flex items-center gap-2.5 mt-1" style={{ color: 'var(--text-muted)' }}>
+                              <span className="flex items-center gap-1"><Users className="w-3.5 h-3.5" /> {stats.memberCount}</span>
                               <span>·</span>
-                              <span className="flex items-center gap-1"><Receipt className="w-3 h-3" /> {stats.expenseCount}</span>
+                              <span className="flex items-center gap-1"><Receipt className="w-3.5 h-3.5" /> {stats.expenseCount}</span>
                               <span>·</span>
                               <span className="font-bold" style={{ color: 'var(--accent)' }}>
                                 {formatVND(stats.totalVND)}
                               </span>
                               <span>·</span>
                               {!trip.tripEnded ? (
-                                <Clock className="w-3 h-3 text-emerald-600" title="Đang đi" />
+                                <Clock className="w-3.5 h-3.5 text-emerald-600" title="Đang đi" />
                               ) : (
-                                <Flag className="w-3 h-3 text-rose-600" title="Chia tiền" />
+                                <Flag className="w-3.5 h-3.5 text-rose-600" title="Chia tiền" />
                               )}
                             </div>
                           </>
@@ -277,7 +277,7 @@ export default function TripSelector({
                           type="button"
                           onClick={(e) => handleStartRename(trip, e)}
                           title="Sửa"
-                          className="w-8 h-8 rounded-xl flex items-center justify-center opacity-70 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
+                          className="w-9 h-9 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:bg-black/5 active:scale-90 transition-all cursor-pointer"
                         >
                           <Edit3 className="w-4 h-4" />
                         </button>
@@ -286,7 +286,7 @@ export default function TripSelector({
                             type="button"
                             onClick={(e) => handleDelete(trip.id, trip.name, e)}
                             title="Xóa"
-                            className="w-8 h-8 rounded-xl flex items-center justify-center opacity-70 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
+                            className="w-9 h-9 rounded-xl flex items-center justify-center opacity-75 hover:opacity-100 hover:text-rose-600 hover:bg-rose-50 active:scale-90 transition-all cursor-pointer text-stone-400"
                           >
                             <Trash2 className="w-4 h-4" />
                           </button>
@@ -307,7 +307,7 @@ export default function TripSelector({
               className="p-4 border-t-2 shrink-0 space-y-3"
             >
               {isCreating ? (
-                <form onSubmit={handleConfirmCreate} className="space-y-2.5 animate-fade-in">
+                <form onSubmit={handleConfirmCreate} className="space-y-3 animate-fade-in">
                   <input
                     type="text"
                     required
@@ -320,16 +320,16 @@ export default function TripSelector({
                       borderColor: 'var(--accent)',
                       color: 'var(--text-main)',
                     }}
-                    className="w-full px-3 py-2 text-xs font-bold rounded-xl border-2 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 text-sm sm:text-base font-bold rounded-2xl border-2 focus:outline-none min-h-[46px]"
                   />
 
                   {activeTrip?.members?.length > 0 && (
-                    <label className="flex items-center gap-2 text-xs font-semibold cursor-pointer select-none opacity-85">
+                    <label className="flex items-center gap-2 text-xs sm:text-sm font-semibold cursor-pointer select-none opacity-85 py-0.5">
                       <input
                         type="checkbox"
                         checked={copyMembers}
                         onChange={(e) => setCopyMembers(e.target.checked)}
-                        className="rounded accent-rose-600 cursor-pointer"
+                        className="rounded accent-rose-600 cursor-pointer w-4 h-4"
                       />
                       <span>Giữ lại {activeTrip.members.length} người từ chuyến này</span>
                     </label>
@@ -342,14 +342,14 @@ export default function TripSelector({
                         backgroundColor: 'var(--accent)',
                         color: 'var(--accent-text)',
                       }}
-                      className="flex-1 py-2 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5"
+                      className="flex-1 py-3 rounded-2xl text-sm font-bold shadow-xs hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5 min-h-[48px]"
                     >
-                      <Plus className="w-3.5 h-3.5" /> Tạo chuyến
+                      <Plus className="w-4 h-4" /> Tạo chuyến
                     </button>
                     <button
                       type="button"
                       onClick={() => setIsCreating(false)}
-                      className="px-3 py-2 rounded-xl text-xs font-semibold opacity-70 hover:opacity-100 cursor-pointer"
+                      className="px-4 py-3 rounded-2xl text-sm font-semibold opacity-70 hover:opacity-100 cursor-pointer min-h-[48px]"
                     >
                       Hủy
                     </button>
@@ -364,7 +364,7 @@ export default function TripSelector({
                       backgroundColor: 'var(--accent)',
                       color: 'var(--accent-text)',
                     }}
-                    className="w-full py-2.5 rounded-xl text-xs font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3.5 rounded-2xl text-sm font-bold shadow-xs hover:opacity-95 transition-all flex items-center justify-center gap-2 cursor-pointer min-h-[48px]"
                   >
                     <Plus className="w-4 h-4" /> Tạo chuyến mới
                   </button>
@@ -377,7 +377,7 @@ export default function TripSelector({
                         onOpenWelcomeGateway()
                       }}
                       style={{ color: 'var(--text-muted)' }}
-                      className="w-full text-center text-xs font-semibold opacity-70 hover:opacity-100 hover:underline cursor-pointer transition-opacity"
+                      className="w-full text-center text-xs sm:text-sm font-semibold opacity-70 hover:opacity-100 hover:underline cursor-pointer transition-opacity py-1"
                     >
                       Màn hình chào mừng
                     </button>
